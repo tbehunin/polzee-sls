@@ -1,9 +1,8 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+const dynamodb = require('serverless-dynamodb-client');
 
 module.exports.hello = async (event, context) => {
-    var dynamodb = new AWS.DynamoDB();
     const params = {
         TableName: process.env.FunSlsTbl,
         Item: {
@@ -14,7 +13,7 @@ module.exports.hello = async (event, context) => {
     };
     let result;
     try {
-        result = await dynamodb.putItem(params).promise();
+        result = await dynamodb.raw.putItem(params).promise();
     } catch (error) {
         result = error;
     }
@@ -26,7 +25,7 @@ module.exports.hello = async (event, context) => {
             input: event,
         }),
     };
-    
+
     // Use this code if you don't use the http event with the LAMBDA-PROXY integration
     // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };

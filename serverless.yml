@@ -47,7 +47,8 @@ provider:
 #    - exclude-me-dir/**
 
 plugins:
-    - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-offline
 
 functions:
   hello:
