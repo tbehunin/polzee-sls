@@ -17,13 +17,17 @@ service: aws-nodejs # NOTE: update this with your service name
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+custom:
+  state: "${opt:stage, self:provider.stage}"
+  myTable: "${self:custom.stage}-MyTable"
+
 provider:
   name: aws
   runtime: nodejs8.10
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  stage: dev
+  region: us-west-2
+  environment: ${file(env.yml):${self:custom:stage}}
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
