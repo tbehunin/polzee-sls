@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tbehunin/polzee-sls/issues"
   },
-  "homepage": "https://github.com/tbehunin/polzee-sls#readme"
+  "homepage": "https://github.com/tbehunin/polzee-sls#readme",
+  "devDependencies": {
+    "serverless-offline": "^4.7.1"
+  }
 }
