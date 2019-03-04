@@ -54,6 +54,9 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
+plugins:
+    - serverless-offline
+    
 functions:
   hello:
     handler: handler.hello
