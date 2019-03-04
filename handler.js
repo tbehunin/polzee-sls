@@ -1,14 +1,32 @@
 'use strict';
 
-module.exports.hello = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+const AWS = require('aws-sdk');
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+module.exports.hello = async (event, context) => {
+    var dynamodb = new AWS.DynamoDB();
+    const params = {
+        TableName: process.env.FunSlsTbl,
+        Item: {
+            'MyId': {
+                S: new Date().toISOString(),
+            },
+        },
+    };
+    let result;
+    try {
+        result = await dynamodb.putItem(params).promise();
+    } catch (error) {
+        result = error;
+    }
+    
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            result,
+            input: event,
+        }),
+    };
+    
+    // Use this code if you don't use the http event with the LAMBDA-PROXY integration
+    // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
