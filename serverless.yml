@@ -100,8 +100,21 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
+resources:
+  Resources:
+    MyTableRsrc:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.myTable}
+        ProvisionedThroughput:
+          ReadCapacityUnits: "1"
+          WriteCapacityUnits: "1"
+        AttributeDefinitions:
+          - AttributeName: "MyId"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "MyId"
+            KeyType: "HASH"
 #    NewResource:
 #      Type: AWS::S3::Bucket
 #      Properties:
