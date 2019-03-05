@@ -4,7 +4,7 @@ const dynamodb = require('serverless-dynamodb-client');
 
 module.exports.hello = async (event, context) => {
     const params = {
-        TableName: process.env.FunSlsTbl,
+        TableName: process.env.MyTable,
         Item: {
             'MyId': {
                 S: new Date().toISOString(),

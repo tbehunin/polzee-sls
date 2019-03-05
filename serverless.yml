@@ -5,7 +5,7 @@ service: polzee-sls
 # frameworkVersion: "=X.X.X"
 
 custom:
-  state: "${opt:stage, self:provider.stage}"
+  stage: "${opt:stage, self:provider.stage}"
   myTable: "${self:custom.stage}-MyTable"
 
 provider:
@@ -14,7 +14,7 @@ provider:
 
   stage: dev
   region: us-west-2
-  environment: ${file(env.yml):${self:custom:stage}}
+  environment: ${file(env.yml):${self:custom.stage}}
 
 # you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:

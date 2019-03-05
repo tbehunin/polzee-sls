@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/tbehunin/polzee-sls#readme",
   "devDependencies": {
-    "serverless-dynamodb-client": "0.0.2",
     "serverless-dynamodb-local": "^0.2.36",
     "serverless-offline": "^4.7.1"
+  },
+  "dependencies": {
+    "serverless-dynamodb-client": "0.0.2"
   }
 }
