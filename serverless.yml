@@ -1,9 +1,5 @@
 service: polzee-sls
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
-
 custom:
   stage: "${opt:stage, self:provider.stage}"
   myTable: "${self:custom.stage}-MyTable"
@@ -16,7 +12,6 @@ provider:
   region: us-west-2
   environment: ${file(env.yml):${self:custom.stage}}
 
-# you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -25,26 +20,6 @@ provider:
         Fn::GetAtt:
           - MyTableRsrc
           - Arn
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
 
 plugins:
   - serverless-dynamodb-local
@@ -57,49 +32,7 @@ functions:
       - http:
           path: users/create
           method: get
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
 
 resources:
-  Resources:
-    MyTableRsrc:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.myTable}
-        ProvisionedThroughput:
-          ReadCapacityUnits: "1"
-          WriteCapacityUnits: "1"
-        AttributeDefinitions:
-          - AttributeName: "MyId"
-            AttributeType: "S"
-        KeySchema:
-          - AttributeName: "MyId"
-            KeyType: "HASH"
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+  - ${file(resources/dynamodb.yml)}
+  - ${file(resources/cognito-user-pool.yml)}
