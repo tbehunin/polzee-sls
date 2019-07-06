@@ -32,6 +32,13 @@ functions:
       - http:
           path: users/create
           method: get
+  generateToken:
+    handler: handler.generateToken
+    events:
+      - http:
+          path: generateToken
+          method: get
+          cors: true
 
 resources:
   - ${file(resources/dynamodb.yml)}
