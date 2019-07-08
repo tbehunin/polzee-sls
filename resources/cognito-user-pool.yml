@@ -21,6 +21,17 @@ Resources:
         - ADMIN_NO_SRP_AUTH
       GenerateSecret: false
 
+  PolzeeApiGatewayAuthorizer:
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      IdentitySource: method.request.header.Authorization
+      Name: PolzeeApiAuthorizer
+      ProviderARNs:
+        - !GetAtt PolzeeCognitoUserPool.Arn
+      RestApiId: !Ref ApiGatewayRestApi
+      Type: COGNITO_USER_POOLS
+
+
 # Print out the Id of the User Pool that is created
 Outputs:
   UserPoolId:
