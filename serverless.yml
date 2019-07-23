@@ -40,8 +40,14 @@ functions:
           method: get
           cors: true
           authorizer:
-            type: COGNITO_USER_POOLS
-            authorizerId: !Ref PolzeeApiGatewayAuthorizer
+            arn: arn:aws:cognito-idp:us-west-2:491927070431:userpool/us-west-2_tz3eFxpaz
+            # type: COGNITO_USER_POOLS
+            # authorizerId: !Ref PolzeeApiGatewayAuthorizer
+            scopes:
+              - api
+    #   - cognitoUserPool:
+    #       pool: ${self:custom.stage}-polzee-user-pool
+    #       trigger: PostAuthentication
 
 resources:
   - ${file(resources/dynamodb.yml)}

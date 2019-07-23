@@ -1,4 +1,11 @@
 Resources:
+  # ApiGatewayMethodGeneratetokenOptions:
+  #   Type: AWS::ApiGateway::Method
+  #   Properties:
+  #     AuthorizationScopes:
+  #       - "todd"
+  #       - "was"
+  #       - "here"
   PolzeeCognitoUserPool:
     Type: AWS::Cognito::UserPool
     Properties:
@@ -9,6 +16,8 @@ Resources:
         - email
       AutoVerifiedAttributes:
         - email
+      # LambdaConfig:
+      #   PostAuthentication: arn:aws:lambda:us-west-2:491927070431:function:polzee-sls-dev-generateToken:2
 
   PolzeeCognitoUserPoolClient:
     Type: AWS::Cognito::UserPoolClient
@@ -21,15 +30,15 @@ Resources:
         - ADMIN_NO_SRP_AUTH
       GenerateSecret: false
 
-  PolzeeApiGatewayAuthorizer:
-    Type: AWS::ApiGateway::Authorizer
-    Properties:
-      IdentitySource: method.request.header.Authorization
-      Name: PolzeeApiAuthorizer
-      ProviderARNs:
-        - !GetAtt PolzeeCognitoUserPool.Arn
-      RestApiId: !Ref ApiGatewayRestApi
-      Type: COGNITO_USER_POOLS
+  # PolzeeApiGatewayAuthorizer:
+  #   Type: AWS::ApiGateway::Authorizer
+  #   Properties:
+  #     IdentitySource: method.request.header.Authorization
+  #     Name: PolzeeApiAuthorizer
+  #     ProviderARNs:
+  #       - !GetAtt PolzeeCognitoUserPool.Arn
+  #     RestApiId: !Ref ApiGatewayRestApi
+  #     Type: COGNITO_USER_POOLS
 
 
 # Print out the Id of the User Pool that is created
