@@ -1,3 +1,5 @@
+org: tbehunin
+app: polzee-sls
 service: polzee-sls
 
 custom:
@@ -48,3 +50,4 @@ resources:
   - ${file(resources/s3-bucket.yml)}
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
+  - ${file(resources/api-gateway.yml)}
