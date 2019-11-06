@@ -1,8 +1,9 @@
 'use strict';
 
 const { ApolloServer, gql } = require('apollo-server-lambda');
-
 const dynamodb = require('serverless-dynamodb-client');
+const data = require('./data');
+
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
@@ -52,15 +53,27 @@ module.exports.generateToken = async (event, context) => {
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
-  type Query {
-    hello: String
-  }
+    type PollChoice {
+        id: String!
+        value: String!
+        acceptable: Boolean!
+    }
+    type Poll {
+        id: String!
+        question: String!
+        choices: [PollChoice]!
+    }
+    type Query {
+        hello: String
+        polls: [Poll]
+    }
 `;
 
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     hello: () => 'Hello world!',
+    polls: (source, args, context, state) => data.polls,
   },
 };
 
