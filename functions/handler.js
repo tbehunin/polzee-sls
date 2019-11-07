@@ -1,8 +1,6 @@
 'use strict';
 
-const { ApolloServer, gql } = require('apollo-server-lambda');
 const dynamodb = require('serverless-dynamodb-client');
-const data = require('../data');
 
 module.exports.hello = async (event, context) => {
     const params = {
@@ -31,40 +29,3 @@ module.exports.hello = async (event, context) => {
     // Use this code if you don't use the http event with the LAMBDA-PROXY integration
     // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
-
-// ************* GRAPHQL STUFFS ************* //
-
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-    type PollChoice {
-        id: String!
-        value: String!
-        acceptable: Boolean!
-    }
-    type Poll {
-        id: String!
-        question: String!
-        choices: [PollChoice]!
-    }
-    type Query {
-        hello: String
-        polls: [Poll]
-    }
-`;
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-    polls: (source, args, context, state) => data.polls,
-  },
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-exports.graphql = server.createHandler({
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
-});
