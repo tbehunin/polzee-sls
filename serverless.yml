@@ -29,13 +29,13 @@ plugins:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: functions/handler.hello
     events:
       - http:
           path: users/create
           method: get
   lambdaArgs:
-    handler: handler.lambdaArgs
+    handler: functions/handler.lambdaArgs
     events:
       - http:
           path: lambdaArgs
@@ -45,7 +45,7 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId: !Ref PolzeeApiGatewayAuthorizer
   graphql:
-    handler: handler.graphql
+    handler: functions/handler.graphql
     events:
       - http:
           path: graphql

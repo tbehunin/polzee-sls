@@ -2,7 +2,7 @@
 
 const { ApolloServer, gql } = require('apollo-server-lambda');
 const dynamodb = require('serverless-dynamodb-client');
-const data = require('./data');
+const data = require('../data');
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
