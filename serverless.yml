@@ -35,7 +35,7 @@ functions:
           path: users/create
           method: get
   lambdaArgs:
-    handler: functions/handler.lambdaArgs
+    handler: functions/lambdaArgs.handler
     events:
       - http:
           path: lambdaArgs
