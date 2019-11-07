@@ -37,14 +37,11 @@ module.exports.hello = async (event, context) => {
     // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
 
-module.exports.generateToken = async (event, context) => {
+module.exports.lambdaArgs = async (event, context) => {
     const response = {
         statusCode: 200,
         headers: { ...corsHeaders },
-        body: JSON.stringify({
-            todd: 'was here',
-            input: event,
-        }),
+        body: JSON.stringify({ event, context }),
     };
     return response;
 };
