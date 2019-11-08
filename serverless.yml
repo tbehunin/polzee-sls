@@ -19,9 +19,7 @@ provider:
       Action:
         - dynamodb:putitem
       Resource:
-        Fn::GetAtt:
-          - MyTableRsrc
-          - Arn
+        - Fn::GetAtt: [MyTableRsrc, Arn]
 
 plugins:
   - serverless-dynamodb-local
