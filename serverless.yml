@@ -5,6 +5,7 @@ service: polzee-sls
 custom:
   stage: "${opt:stage, self:provider.stage}"
   myTable: "${self:custom.stage}-MyTable"
+  dbPolls: "${self:custom.stage}-polls"
 
 provider:
   name: aws
@@ -20,6 +21,7 @@ provider:
         - dynamodb:putitem
       Resource:
         - Fn::GetAtt: [MyTableRsrc, Arn]
+        - Fn::GetAtt: [DbPollsRsrc, Arn]
 
 plugins:
   - serverless-dynamodb-local
