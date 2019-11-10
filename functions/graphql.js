@@ -4,7 +4,7 @@ const dbPolls = require('../dal/polls');
 
 const typeDefs = gql`
     type PollChoice {
-        id: ID!
+        order: Int!
         value: String!
         acceptable: Boolean!
     }
