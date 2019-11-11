@@ -33,7 +33,17 @@ module.exports = ({
             console.error(error);
         }
     },
-    // getById: async input => {
-    //     //
-    // }
+    getById: async id => {
+        const params = {
+            Key: { id },
+            TableName: process.env.dbPolls,
+        };
+
+        try {
+            const data = await dynamodb.doc.get(params).promise();
+            return (data || {}).Item;;
+        } catch (error) {
+            console.error(error);
+        }
+    }
 });

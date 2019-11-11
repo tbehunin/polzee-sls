@@ -23,6 +23,7 @@ const typeDefs = gql`
     }
     type Query {
         polls: [Poll]
+        poll(id: ID!): Poll
     }
     type Mutation {
         createPoll(input: PollInput): Poll
@@ -32,6 +33,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     polls: (source, args, context, state) => data.polls,
+    poll: async (source, { id }, context, state) => await dbPolls.getById(id),
     // directPolls: (source, args, context, state) => data.polls,
     // feed: (source, args, context, state) => data.polls,
   },

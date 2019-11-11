@@ -19,6 +19,7 @@ provider:
     - Effect: "Allow"
       Action:
         - dynamodb:putitem
+        - dynamodb:getitem
       Resource:
         - Fn::GetAtt: [MyTableRsrc, Arn]
         - Fn::GetAtt: [DbPollsRsrc, Arn]
