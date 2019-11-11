@@ -22,7 +22,6 @@ const typeDefs = gql`
         choices: [PollChoiceInput]!
     }
     type Query {
-        hello: String
         polls: [Poll]
     }
     type Mutation {
@@ -32,7 +31,6 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
     polls: (source, args, context, state) => data.polls,
     // directPolls: (source, args, context, state) => data.polls,
     // feed: (source, args, context, state) => data.polls,

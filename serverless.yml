@@ -28,12 +28,6 @@ plugins:
   - serverless-offline
 
 functions:
-  hello:
-    handler: functions/handler.hello
-    events:
-      - http:
-          path: users/create
-          method: get
   lambdaArgs:
     handler: functions/lambdaArgs.handler
     events:
