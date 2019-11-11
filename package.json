@@ -18,7 +18,7 @@
   "homepage": "https://github.com/tbehunin/polzee-sls#readme",
   "devDependencies": {
     "eslint": "^6.5.1",
-    "serverless-dynamodb-local": "^0.2.36",
+    "serverless-dynamodb-local": "^0.2.38",
     "serverless-offline": "^4.7.1"
   },
   "dependencies": {
