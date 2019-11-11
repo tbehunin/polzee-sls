@@ -15,6 +15,7 @@ module.exports = ({
             TableName: process.env.dbPolls,
             Item: {
                 id: { S: newPoll.id },
+                userId: { S: newPoll.userId },
                 question: { S: newPoll.question },
                 choices: {
                     L: newPoll.choices.map(choice => ({

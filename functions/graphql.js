@@ -38,11 +38,16 @@ const resolvers = {
     // feed: (source, args, context, state) => data.polls,
   },
   Mutation: {
-    createPoll: async (_, { input }) => await dbPolls.add(input),
+    createPoll: async (source, { input }, context, state) =>
+        await dbPolls.add({ ...input, userId: context.event.requestContext.authorizer.claims.sub }),
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: options => options,
+});
 
 exports.handler = server.createHandler({
   cors: {
