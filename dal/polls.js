@@ -14,30 +14,24 @@ module.exports = ({
         const params = {
             TableName: process.env.dbPolls,
             Item: {
-                id: { S: newPoll.id },
-                userId: { S: newPoll.userId },
-                question: { S: newPoll.question },
-                choices: {
-                    L: newPoll.choices.map(choice => ({
-                        M: {
-                            order: { N: `${choice.order}` },
-                            value: { S: choice.value },
-                            acceptable: { BOOL: choice.acceptable },
-                        },
-                    })),
-                },
+                id: newPoll.id,
+                userId: newPoll.userId,
+                question: newPoll.question,
+                choices: newPoll.choices.map(choice => ({
+                    order: `${choice.order}`,
+                    value: choice.value,
+                    acceptable: choice.acceptable,
+                })),
             },
             ReturnValues: 'ALL_OLD',
         };
-        let result;
+
         try {
-            const existingData = await dynamodb.raw.putItem(params).promise();
-            result = { ...existingData, ...newPoll };
+            const existingData = await dynamodb.doc.put(params).promise();
+            return { ...existingData, ...newPoll };
         } catch (error) {
-            result = error;
+            console.error(error);
         }
-        
-        return result;
     },
     // getById: async input => {
     //     //
