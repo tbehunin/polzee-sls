@@ -10,19 +10,11 @@ module.exports = ({
                 ...choice,
                 order: idx + 1,
             })),
+            createTimestamp: Date.now(),
         };
         const params = {
             TableName: process.env.dbPolls,
-            Item: {
-                id: newPoll.id,
-                userId: newPoll.userId,
-                question: newPoll.question,
-                choices: newPoll.choices.map(choice => ({
-                    order: `${choice.order}`,
-                    value: choice.value,
-                    acceptable: choice.acceptable,
-                })),
-            },
+            Item: newPoll,
             ReturnValues: 'ALL_OLD',
         };
 

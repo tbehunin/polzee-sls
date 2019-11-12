@@ -12,6 +12,9 @@ const typeDefs = gql`
         id: ID!
         question: String!
         choices: [PollChoice]!
+        sharedWith: [ID]
+        expireTimestamp: Int!
+        createTimestamp: Int!
     }
     input PollChoiceInput {
         value: String!
@@ -20,6 +23,8 @@ const typeDefs = gql`
     input PollInput {
         question: String!
         choices: [PollChoiceInput]!
+        sharedWith: [ID]
+        expireTimestamp: Int!
     }
     type Query {
         polls: [Poll]
