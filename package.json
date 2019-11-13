@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/tbehunin/polzee-sls#readme",
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "serverless-dynamodb-local": "^0.2.38",
     "serverless-offline": "^5.12.0"
   },
