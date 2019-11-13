@@ -1,4 +1,6 @@
-const { ApolloServer, gql, ValidationError } = require('apollo-server-lambda');
+const {
+  ApolloServer, gql, ValidationError, ForbiddenError,
+} = require('apollo-server-lambda');
 const data = require('../data');
 const dbPolls = require('../dal/polls');
 
@@ -35,10 +37,27 @@ const typeDefs = gql`
     }
 `;
 
+const withPollAuthorization = (resolver) => {
+  const authResolver = async (source, args, context, state) => {
+    const poll = await resolver(source, args, context, state);
+    const currentUser = context.event.requestContext.authorizer.claims.sub;
+
+    if (poll && poll.userId !== currentUser
+      && poll.sharedWith && !poll.sharedWith.includes(currentUser)) {
+      throw new ForbiddenError('Unauthorized');
+    }
+
+    return poll;
+  };
+  return authResolver;
+};
+
+const pollResolver = async (_, { id }) => dbPolls.getById(id);
+
 const resolvers = {
   Query: {
     polls: () => data.polls,
-    poll: async (_, { id }) => dbPolls.getById(id),
+    poll: withPollAuthorization(pollResolver),
     // directPolls: (source, args, context, state) => data.polls,
     // feed: (source, args, context, state) => data.polls,
   },
