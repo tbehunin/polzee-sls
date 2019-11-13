@@ -20,6 +20,11 @@ custom:
       convertEmptyValues: true
     # Uncomment only if you already have a DynamoDB running locally
     # noStart: true
+    seed:
+      common:
+        sources:
+          - table: ${self:custom.dbPolls}
+            sources: [./seed.json]
 
 provider:
   name: aws
