@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server-lambda');
+const { ApolloServer, gql, ValidationError } = require('apollo-server-lambda');
 const data = require('../data');
 const dbPolls = require('../dal/polls');
 
@@ -37,21 +37,26 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    polls: (source, args, context, state) => data.polls,
-    poll: async (source, { id }, context, state) => await dbPolls.getById(id),
+    polls: () => data.polls,
+    poll: async (_, { id }) => dbPolls.getById(id),
     // directPolls: (source, args, context, state) => data.polls,
     // feed: (source, args, context, state) => data.polls,
   },
   Mutation: {
-    createPoll: async (source, { input }, context, state) =>
-        await dbPolls.add({ ...input, userId: context.event.requestContext.authorizer.claims.sub }),
+    createPoll: async (_, { input }, context) => {
+      // Validate input that graphQL doesn't already automatically handle
+      if (input.choices.length < 2 || input.choices.length > 6) {
+        throw new ValidationError('Two or more choices required - not to exceed six');
+      }
+      return dbPolls.add({ ...input, userId: context.event.requestContext.authorizer.claims.sub });
+    },
   },
 };
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: options => options,
+  typeDefs,
+  resolvers,
+  context: (options) => options,
 });
 
 exports.handler = server.createHandler({
