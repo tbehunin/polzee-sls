@@ -2,7 +2,7 @@ const {
   ApolloServer, gql, ValidationError, ForbiddenError,
 } = require('apollo-server-lambda');
 const data = require('../data');
-const dbPolls = require('../dal/polls');
+const dbPolls = require('../data/polls');
 
 const typeDefs = gql`
     type PollChoice {
