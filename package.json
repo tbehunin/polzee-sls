@@ -5,7 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "offline": "export AUTHORIZER='{\"claims\":{\"sub\":\"me\"}}' && sls offline start"
+    "offline": "export AUTHORIZER='{\"claims\":{\"sub\":\"user1\"}}' && sls offline start"
   },
   "repository": {
     "type": "git",

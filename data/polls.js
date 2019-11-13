@@ -5,7 +5,6 @@ module.exports = ({
   add: async (input) => {
     const newPoll = {
       ...input,
-      id: uuid(),
       choices: input.choices.map((choice, idx) => ({
         ...choice,
         order: idx + 1,
@@ -25,9 +24,9 @@ module.exports = ({
       console.error(error);
     }
   },
-  getById: async (id) => {
+  get: async (userId, createTimestamp) => {
     const params = {
-      Key: { id },
+      Key: { userId, createTimestamp },
       TableName: process.env.dbPolls,
     };
 

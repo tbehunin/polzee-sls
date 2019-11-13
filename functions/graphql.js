@@ -11,12 +11,12 @@ const typeDefs = gql`
         acceptable: Boolean!
     }
     type Poll {
-        id: ID!
+        userId: ID!
+        createTimestamp: ID!
         question: String!
         choices: [PollChoice]!
         sharedWith: [ID]
         expireTimestamp: Int!
-        createTimestamp: Int!
     }
     input PollChoiceInput {
         value: String!
@@ -30,7 +30,7 @@ const typeDefs = gql`
     }
     type Query {
         polls: [Poll]
-        poll(id: ID!): Poll
+        poll(createTimestamp: ID!): Poll
     }
     type Mutation {
         createPoll(input: PollInput): Poll
@@ -52,7 +52,9 @@ const withPollAuthorization = (resolver) => {
   return authResolver;
 };
 
-const pollResolver = async (_, { id }) => dbPolls.getById(id);
+const pollResolver = async (_, { createTimestamp }, context) => {
+  await dbPolls.get(context.event.requestContext.authorizer.claims.sub, createTimestamp);
+};
 
 const resolvers = {
   Query: {

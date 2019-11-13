@@ -15,9 +15,13 @@ Resources:
     Properties:
       TableName: ${self:custom.dbPolls}
       AttributeDefinitions:
-        - AttributeName: "id"
+        - AttributeName: "userId"
           AttributeType: "S"
+        - AttributeName: "createTimestamp"
+          AttributeType: "N"
       KeySchema:
-        - AttributeName: "id"
+        - AttributeName: "userId"
           KeyType: "HASH"
+        - AttributeName: "createTimestamp"
+          KeyType: "RANGE"
       BillingMode: PAY_PER_REQUEST
