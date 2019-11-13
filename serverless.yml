@@ -24,7 +24,7 @@ custom:
       common:
         sources:
           - table: ${self:custom.dbPolls}
-            sources: [./seed.json]
+            sources: [./data/seed.json]
 
 provider:
   name: aws
