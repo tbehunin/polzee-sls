@@ -48,6 +48,9 @@ const resolvers = {
       if (input.choices.length < 2 || input.choices.length > 6) {
         throw new ValidationError('Two or more choices required - not to exceed six');
       }
+      if (input.sharedWith && input.sharedWith.length > 25) {
+        throw new ValidationError('Cannot share with more than 25 users');
+      }
       return dbPolls.add({ ...input, userId: context.event.requestContext.authorizer.claims.sub });
     },
   },
