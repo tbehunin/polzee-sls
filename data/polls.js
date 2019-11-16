@@ -1,5 +1,4 @@
 const dynamodb = require('serverless-dynamodb-client');
-const uuid = require('uuid/v1');
 
 module.exports = ({
   add: async (input) => {
