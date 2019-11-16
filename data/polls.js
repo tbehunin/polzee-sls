@@ -9,6 +9,7 @@ module.exports = ({
         order: idx + 1,
       })),
       createTimestamp: Date.now(),
+      sharedWithCount: (input.sharedWith || []).length,
     };
     const params = {
       TableName: process.env.dbPolls,
@@ -36,7 +37,7 @@ module.exports = ({
       console.error(error);
     }
   },
-  getAll: async (userId, excludePrivatePolls) => {
+  getAll: async (userId, excludePrivate) => {
     const params = {
       KeyConditionExpression: 'userId = :userId',
       ExpressionAttributeValues: {
@@ -44,6 +45,14 @@ module.exports = ({
       },
       TableName: process.env.dbPolls,
     };
+    if (excludePrivate) {
+      params.IndexName = 'PollsUserIdSharedWithCountIdx';
+      params.KeyConditionExpression = `${params.KeyConditionExpression} AND sharedWithCount = :sharedWithCount`;
+      params.ExpressionAttributeValues = {
+        ...params.ExpressionAttributeValues,
+        ':sharedWithCount': 0,
+      };
+    }
 
     try {
       const data = await dynamodb.doc.query(params).promise();

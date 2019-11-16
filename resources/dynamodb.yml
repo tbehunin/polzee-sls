@@ -4,24 +4,35 @@ Resources:
     Properties:
       TableName: ${self:custom.myTable}
       AttributeDefinitions:
-        - AttributeName: "MyId"
-          AttributeType: "S"
+        - AttributeName: MyId
+          AttributeType: S
       KeySchema:
-        - AttributeName: "MyId"
-          KeyType: "HASH"
+        - AttributeName: MyId
+          KeyType: HASH
       BillingMode: PAY_PER_REQUEST
   DbPollsRsrc:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: ${self:custom.dbPolls}
       AttributeDefinitions:
-        - AttributeName: "userId"
-          AttributeType: "S"
-        - AttributeName: "createTimestamp"
-          AttributeType: "N"
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: createTimestamp
+          AttributeType: N
+        - AttributeName: sharedWithCount
+          AttributeType: N
       KeySchema:
-        - AttributeName: "userId"
-          KeyType: "HASH"
-        - AttributeName: "createTimestamp"
-          KeyType: "RANGE"
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: createTimestamp
+          KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: PollsUserIdSharedWithCountIdx
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: sharedWithCount
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL

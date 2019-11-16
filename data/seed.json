@@ -2,7 +2,7 @@
     {
         "userId": "user1",
         "createTimestamp": 111,
-        "question": "question 1",
+        "question": "private poll 1",
         "choices": [
             {
                 "order": 1,
@@ -18,12 +18,13 @@
         "expireTimestamp": 222,
         "sharedWith": [
             "user2"
-        ]
+        ],
+        "sharedWithCount": 1
     },
     {
         "userId": "user1",
         "createTimestamp": 222,
-        "question": "question 2",
+        "question": "public poll 2",
         "choices": [
             {
                 "order": 1,
@@ -37,12 +38,13 @@
             }
         ],
         "expireTimestamp": 222,
-        "sharedWith": []
+        "sharedWith": [],
+        "sharedWithCount": 0
     },
     {
         "userId": "user2",
         "createTimestamp": 111,
-        "question": "question 3",
+        "question": "private poll 3",
         "choices": [
             {
                 "order": 1,
@@ -58,12 +60,13 @@
         "expireTimestamp": 222,
         "sharedWith": [
             "user1"
-        ]
+        ],
+        "sharedWithCount": 1
     },
     {
         "userId": "user2",
         "createTimestamp": 222,
-        "question": "question 4",
+        "question": "public poll 4",
         "choices": [
             {
                 "order": 1,
@@ -77,6 +80,7 @@
             }
         ],
         "expireTimestamp": 222,
-        "sharedWith": []
+        "sharedWith": [],
+        "sharedWithCount": 0
     }
 ]
