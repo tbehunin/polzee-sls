@@ -37,4 +37,20 @@ module.exports = ({
       console.error(error);
     }
   },
+  getAll: async (userId, excludePrivatePolls) => {
+    const params = {
+      KeyConditionExpression: 'userId = :userId',
+      ExpressionAttributeValues: {
+        ':userId': userId,
+      },
+      TableName: process.env.dbPolls,
+    };
+
+    try {
+      const data = await dynamodb.doc.query(params).promise();
+      return (data || {}).Items;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 });

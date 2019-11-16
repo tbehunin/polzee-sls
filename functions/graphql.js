@@ -1,7 +1,6 @@
 const {
   ApolloServer, gql, ValidationError, ForbiddenError,
 } = require('apollo-server-lambda');
-const data = require('../data');
 const dbPolls = require('../data/polls');
 
 const typeDefs = gql`
@@ -29,7 +28,7 @@ const typeDefs = gql`
         expireTimestamp: Int!
     }
     type Query {
-        polls: [Poll]
+        polls(userId: ID): [Poll]
         poll(createTimestamp: ID!): Poll
     }
     type Mutation {
@@ -38,12 +37,11 @@ const typeDefs = gql`
 `;
 
 const withPollAuthorization = (resolver) => {
-  const authResolver = async (source, args, context, state) => {
-    const poll = await resolver(source, args, context, state);
-    const currentUser = context.event.requestContext.authorizer.claims.sub;
+  const authResolver = async (source, args, { userId }, state) => {
+    const poll = await resolver(source, args, userId, state);
 
-    if (poll && poll.userId !== currentUser
-      && poll.sharedWith && !poll.sharedWith.includes(currentUser)) {
+    if (poll && poll.userId !== userId
+      && poll.sharedWith && !poll.sharedWith.includes(userId)) {
       throw new ForbiddenError('Unauthorized');
     }
 
@@ -52,19 +50,24 @@ const withPollAuthorization = (resolver) => {
   return authResolver;
 };
 
-const pollResolver = async (_, { createTimestamp }, context) => {
-  await dbPolls.get(context.event.requestContext.authorizer.claims.sub, createTimestamp);
+const pollsResolver = async (_, args, { userId }) => {
+  const idToQuery = args.userId || userId;
+  return dbPolls.getAll(idToQuery, idToQuery !== userId);
+};
+
+const pollResolver = async (_, { createTimestamp }, { userId }) => {
+  await dbPolls.get(userId, createTimestamp);
 };
 
 const resolvers = {
   Query: {
-    polls: () => data.polls,
+    polls: pollsResolver,
     poll: withPollAuthorization(pollResolver),
     // directPolls: (source, args, context, state) => data.polls,
     // feed: (source, args, context, state) => data.polls,
   },
   Mutation: {
-    createPoll: async (_, { input }, context) => {
+    createPoll: async (_, { input }, { userId }) => {
       // Validate input that graphQL doesn't already automatically handle
       if (input.choices.length < 2 || input.choices.length > 6) {
         throw new ValidationError('Two or more choices required - not to exceed six');
@@ -72,7 +75,7 @@ const resolvers = {
       if (input.sharedWith && input.sharedWith.length > 25) {
         throw new ValidationError('Cannot share with more than 25 users');
       }
-      return dbPolls.add({ ...input, userId: context.event.requestContext.authorizer.claims.sub });
+      return dbPolls.add({ ...input, userId });
     },
   },
 };
@@ -80,7 +83,10 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: (options) => options,
+  context: (options) => ({
+    ...options,
+    userId: options.event.requestContext.authorizer.claims.sub,
+  }),
 });
 
 exports.handler = server.createHandler({
