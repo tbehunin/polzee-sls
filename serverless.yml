@@ -4,7 +4,6 @@ service: polzee-sls
 
 custom:
   stage: "${opt:stage, self:provider.stage}"
-  myTable: "${self:custom.stage}-MyTable"
   dbPolls: "${self:custom.stage}-polls"
   dynamodb:
     # If you only want to use DynamoDB Local in some stages, declare them here
@@ -40,7 +39,6 @@ provider:
         - dynamodb:putitem
         - dynamodb:getitem
       Resource:
-        - Fn::GetAtt: [MyTableRsrc, Arn]
         - Fn::GetAtt: [DbPollsRsrc, Arn]
 
 plugins:

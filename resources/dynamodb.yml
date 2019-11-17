@@ -1,15 +1,4 @@
 Resources:
-  MyTableRsrc:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: ${self:custom.myTable}
-      AttributeDefinitions:
-        - AttributeName: MyId
-          AttributeType: S
-      KeySchema:
-        - AttributeName: MyId
-          KeyType: HASH
-      BillingMode: PAY_PER_REQUEST
   DbPollsRsrc:
     Type: AWS::DynamoDB::Table
     Properties:
