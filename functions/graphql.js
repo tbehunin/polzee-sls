@@ -37,11 +37,11 @@ const typeDefs = gql`
 `;
 
 const withPollAuthorization = (resolver) => {
-  const authResolver = async (source, args, { userId }, state) => {
-    const poll = await resolver(source, args, userId, state);
+  const authResolver = async (source, args, context, state) => {
+    const poll = await resolver(source, args, context, state);
 
-    if (poll && poll.userId !== userId
-      && poll.sharedWith && !poll.sharedWith.includes(userId)) {
+    if (poll && poll.userId !== context.userId
+      && poll.sharedWith && !poll.sharedWith.includes(context.userId)) {
       throw new ForbiddenError('Unauthorized');
     }
 
@@ -55,9 +55,7 @@ const pollsResolver = async (_, args, { userId }) => {
   return dbPolls.getAll(idToQuery, idToQuery !== userId);
 };
 
-const pollResolver = async (_, { createTimestamp }, { userId }) => {
-  await dbPolls.get(userId, createTimestamp);
-};
+const pollResolver = async (_, { createTimestamp }, context) => dbPolls.get(context.userId, createTimestamp);
 
 const resolvers = {
   Query: {

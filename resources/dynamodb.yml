@@ -4,22 +4,24 @@ Resources:
     Properties:
       TableName: ${self:custom.dbPolls}
       AttributeDefinitions:
-        - AttributeName: userId
+        - AttributeName: hashKey
           AttributeType: S
-        - AttributeName: createTimestamp
-          AttributeType: N
+        - AttributeName: sortKey
+          AttributeType: S
         - AttributeName: sharedWithCount
           AttributeType: N
+        # - AttributeName: sharedPoll
+        #   AttributeType: N
       KeySchema:
-        - AttributeName: userId
+        - AttributeName: hashKey
           KeyType: HASH
-        - AttributeName: createTimestamp
+        - AttributeName: sortKey
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
       GlobalSecondaryIndexes:
-        - IndexName: PollsUserIdSharedWithCountIdx
+        - IndexName: PollsHashKeySharedWithCountIdx
           KeySchema:
-            - AttributeName: userId
+            - AttributeName: hashKey
               KeyType: HASH
             - AttributeName: sharedWithCount
               KeyType: RANGE

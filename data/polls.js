@@ -2,13 +2,16 @@ const dynamodb = require('serverless-dynamodb-client');
 
 module.exports = ({
   add: async (input) => {
+    const timestamp = Date.now();
     const newPoll = {
       ...input,
+      hashKey: `userId-${input.userId}`,
+      sortKey: `Details-${timestamp}`,
       choices: input.choices.map((choice, idx) => ({
         ...choice,
         order: idx + 1,
       })),
-      createTimestamp: Date.now(),
+      createTimestamp: timestamp,
       sharedWithCount: (input.sharedWith || []).length,
     };
     const params = {
@@ -26,7 +29,10 @@ module.exports = ({
   },
   get: async (userId, createTimestamp) => {
     const params = {
-      Key: { userId, createTimestamp },
+      Key: {
+        hashKey: `userId-${userId}`,
+        sortKey: `Details-${createTimestamp}`,
+      },
       TableName: process.env.dbPolls,
     };
 
@@ -39,14 +45,14 @@ module.exports = ({
   },
   getAll: async (userId, excludePrivate) => {
     const params = {
-      KeyConditionExpression: 'userId = :userId',
+      KeyConditionExpression: 'hashKey = :hk',
       ExpressionAttributeValues: {
-        ':userId': userId,
+        ':hk': `userId-${userId}`,
       },
       TableName: process.env.dbPolls,
     };
     if (excludePrivate) {
-      params.IndexName = 'PollsUserIdSharedWithCountIdx';
+      params.IndexName = 'PollsHashKeySharedWithCountIdx';
       params.KeyConditionExpression = `${params.KeyConditionExpression} AND sharedWithCount = :sharedWithCount`;
       params.ExpressionAttributeValues = {
         ...params.ExpressionAttributeValues,

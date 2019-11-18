@@ -1,5 +1,7 @@
 [
     {
+        "hashKey": "userId-user1",
+        "sortKey": "Details-111",
         "userId": "user1",
         "createTimestamp": 111,
         "question": "private poll 1",
@@ -22,6 +24,8 @@
         "sharedWithCount": 1
     },
     {
+        "hashKey": "userId-user1",
+        "sortKey": "Details-222",
         "userId": "user1",
         "createTimestamp": 222,
         "question": "public poll 2",
@@ -42,6 +46,8 @@
         "sharedWithCount": 0
     },
     {
+        "hashKey": "userId-user2",
+        "sortKey": "Details-111",
         "userId": "user2",
         "createTimestamp": 111,
         "question": "private poll 3",
@@ -64,6 +70,8 @@
         "sharedWithCount": 1
     },
     {
+        "hashKey": "userId-user2",
+        "sortKey": "Details-222",
         "userId": "user2",
         "createTimestamp": 222,
         "question": "public poll 4",
