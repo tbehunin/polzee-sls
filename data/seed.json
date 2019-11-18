@@ -90,5 +90,29 @@
         "expireTimestamp": 222,
         "sharedWith": [],
         "sharedWithCount": 0
+    },
+    {
+        "hashKey": "userId-user2",
+        "sortKey": "Details-333",
+        "userId": "user2",
+        "createTimestamp": 333,
+        "question": "private poll 5",
+        "choices": [
+            {
+                "order": 1,
+                "value": "foo5",
+                "acceptable": true
+            },
+            {
+                "order": 2,
+                "value": "bar5",
+                "acceptable": true
+            }
+        ],
+        "expireTimestamp": 222,
+        "sharedWith": [
+            "user3"
+        ],
+        "sharedWithCount": 1
     }
 ]

@@ -29,7 +29,7 @@ const typeDefs = gql`
     }
     type Query {
         polls(userId: ID): [Poll]
-        poll(createTimestamp: ID!): Poll
+        poll(userId: ID, createTimestamp: ID!): Poll
     }
     type Mutation {
         createPoll(input: PollInput): Poll
@@ -41,7 +41,8 @@ const withPollAuthorization = (resolver) => {
     const poll = await resolver(source, args, context, state);
 
     if (poll && poll.userId !== context.userId
-      && poll.sharedWith && !poll.sharedWith.includes(context.userId)) {
+      && poll.sharedWith && poll.sharedWith.length > 0
+      && !poll.sharedWith.includes(context.userId)) {
       throw new ForbiddenError('Unauthorized');
     }
 
@@ -55,7 +56,7 @@ const pollsResolver = async (_, args, { userId }) => {
   return dbPolls.getAll(idToQuery, idToQuery !== userId);
 };
 
-const pollResolver = async (_, { createTimestamp }, context) => dbPolls.get(context.userId, createTimestamp);
+const pollResolver = async (_, { userId, createTimestamp }, context) => dbPolls.get(userId || context.userId, createTimestamp);
 
 const resolvers = {
   Query: {
