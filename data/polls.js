@@ -5,8 +5,8 @@ module.exports = ({
     const timestamp = Date.now();
     const newPoll = {
       ...input,
-      hashKey: `userId-${input.userId}`,
-      sortKey: `Details-${timestamp}`,
+      hashKey: `UserId:${input.userId}`,
+      sortKey: `Poll:${timestamp}`,
       choices: input.choices.map((choice, idx) => ({
         ...choice,
         order: idx + 1,
@@ -30,8 +30,8 @@ module.exports = ({
   get: async (userId, createTimestamp) => {
     const params = {
       Key: {
-        hashKey: `userId-${userId}`,
-        sortKey: `Details-${createTimestamp}`,
+        hashKey: `UserId:${userId}`,
+        sortKey: `Poll:${createTimestamp}`,
       },
       TableName: process.env.dbPolls,
     };
@@ -47,7 +47,7 @@ module.exports = ({
     const params = {
       KeyConditionExpression: 'hashKey = :hk',
       ExpressionAttributeValues: {
-        ':hk': `userId-${userId}`,
+        ':hk': `UserId:${userId}`,
       },
       TableName: process.env.dbPolls,
     };
