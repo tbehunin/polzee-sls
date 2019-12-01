@@ -38,6 +38,8 @@ provider:
       Action:
         - dynamodb:putitem
         - dynamodb:getitem
+        - dynamodb:batchgetitem
+        - dynamodb:query
       Resource:
         - Fn::GetAtt: [DbPollsRsrc, Arn]
 

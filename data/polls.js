@@ -15,14 +15,27 @@ module.exports = ({
       sharedWithCount: (input.sharedWith || []).length,
     };
     const params = {
-      TableName: process.env.dbPolls,
-      Item: newPoll,
-      ReturnValues: 'ALL_OLD',
+      RequestItems: {
+        [process.env.dbPolls]: [{
+          PutRequest: {
+            Item: newPoll,
+          },
+        }].concat(newPoll.sharedWith.map((userId) => ({
+          PutRequest: {
+            Item: {
+              hashKey: `UserId:${userId}`,
+              sortKey: `DirectPoll:${timestamp}`,
+              fromUserId: input.userId,
+              createTimestamp: timestamp,
+            },
+          },
+        }))),
+      },
     };
 
     try {
-      const existingData = await dynamodb.doc.put(params).promise();
-      return { ...existingData, ...newPoll };
+      const existingData = await dynamodb.doc.batchWrite(params).promise();
+      return newPoll;
     } catch (error) {
       console.error(error);
     }
@@ -63,6 +76,38 @@ module.exports = ({
     try {
       const data = await dynamodb.doc.query(params).promise();
       return (data || {}).Items;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  getAllDirect: async (userId) => {
+    const params1 = {
+      ExpressionAttributeValues: {
+        ':hk': `UserId:${userId}`,
+        ':sk': 'DirectPoll:',
+      },
+      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+      TableName: process.env.dbPolls,
+    };
+
+    try {
+      const data1 = await dynamodb.doc.query(params1).promise();
+      const dpList = (data1 || {}).Items || [];
+      if (dpList.length) {
+        const params2 = {
+          RequestItems: {
+            [process.env.dbPolls]: {
+              Keys: dpList.map((item) => ({
+                hashKey: `UserId:${item.fromUserId}`,
+                sortKey: `Poll:${item.createTimestamp}`,
+              })),
+            },
+          },
+        };
+        const data2 = await dynamodb.doc.batchGet(params2).promise();
+        return ((data2 || {}).Responses || {})[process.env.dbPolls] || [];
+      }
+      return null;
     } catch (error) {
       console.error(error);
     }

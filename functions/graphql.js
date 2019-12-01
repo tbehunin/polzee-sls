@@ -30,6 +30,7 @@ const typeDefs = gql`
     type Query {
         polls(userId: ID): [Poll]
         poll(userId: ID, createTimestamp: ID!): Poll
+        directPolls: [Poll]
     }
     type Mutation {
         createPoll(input: PollInput): Poll
@@ -58,11 +59,13 @@ const pollsResolver = async (_, args, { userId }) => {
 
 const pollResolver = async (_, { userId, createTimestamp }, context) => dbPolls.get(userId || context.userId, createTimestamp);
 
+const directPollsResolver = async (_, args, { userId }) => dbPolls.getAllDirect(userId);
+
 const resolvers = {
   Query: {
     polls: pollsResolver,
     poll: withPollAuthorization(pollResolver),
-    // directPolls: (source, args, context, state) => data.polls,
+    directPolls: directPollsResolver,
     // feed: (source, args, context, state) => data.polls,
   },
   Mutation: {

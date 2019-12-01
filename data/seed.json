@@ -114,5 +114,23 @@
             "user3"
         ],
         "sharedWithCount": 1
+    },
+    {
+        "hashKey": "UserId:user2",
+        "sortKey": "DirectPoll:111",
+        "fromUserId": "user1",
+        "createTimestamp": 111
+    },
+    {
+        "hashKey": "UserId:user1",
+        "sortKey": "DirectPoll:111",
+        "fromUserId": "user2",
+        "createTimestamp": 111
+    },
+    {
+        "hashKey": "UserId:user3",
+        "sortKey": "DirectPoll:333",
+        "fromUserId": "user2",
+        "createTimestamp": 333
     }
 ]
