@@ -15,10 +15,6 @@ module.exports = async (db, userId, excludePrivate) => {
     };
   }
 
-  try {
-    const data = await db.query(params).promise();
-    return (data || {}).Items;
-  } catch (error) {
-    console.error(error);
-  }
+  const data = await db.query(params).promise();
+  return (data || {}).Items;
 };

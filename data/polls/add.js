@@ -30,10 +30,6 @@ module.exports = async (db, input) => {
     },
   };
 
-  try {
-    const existingData = await db.batchWrite(params).promise();
-    return newPoll;
-  } catch (error) {
-    console.error(error);
-  }
+  await db.batchWrite(params).promise();
+  return newPoll;
 };

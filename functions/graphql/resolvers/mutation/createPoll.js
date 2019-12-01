@@ -9,5 +9,12 @@ module.exports = async (_, { input }, { userId }) => {
   if (input.sharedWith && input.sharedWith.length > 25) {
     throw new ValidationError('Cannot share with more than 25 users');
   }
-  return dbPolls.add({ ...input, userId });
+
+  let result;
+  try {
+    result = dbPolls.add({ ...input, userId });
+  } catch (error) {
+    console.log(error);
+  }
+  return result;
 };

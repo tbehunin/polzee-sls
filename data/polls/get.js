@@ -7,10 +7,6 @@ module.exports = async (db, userId, createTimestamp) => {
     TableName: process.env.dbPolls,
   };
 
-  try {
-    const data = await db.get(params).promise();
-    return (data || {}).Item;
-  } catch (error) {
-    console.error(error);
-  }
+  const data = await db.get(params).promise();
+  return (data || {}).Item;
 };
