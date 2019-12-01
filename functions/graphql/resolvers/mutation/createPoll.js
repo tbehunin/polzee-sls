@@ -1,4 +1,4 @@
-const { ValidationError } = require('apollo-server-lambda');
+const { ValidationError, ApolloError } = require('apollo-server-lambda');
 const dbPolls = require('../../../../data/polls');
 
 module.exports = async (_, { input }, { userId }) => {
@@ -12,9 +12,10 @@ module.exports = async (_, { input }, { userId }) => {
 
   let result;
   try {
-    result = dbPolls.add({ ...input, userId });
+    result = await dbPolls.add({ ...input, userId });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new ApolloError(`Error creating poll for user ${userId}`);
   }
   return result;
 };
