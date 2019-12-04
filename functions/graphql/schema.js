@@ -7,6 +7,7 @@ module.exports = gql`
         acceptable: Boolean!
     }
     type Poll {
+        pollId: ID!
         userId: ID!
         createTimestamp: ID!
         question: String!

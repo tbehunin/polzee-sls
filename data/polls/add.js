@@ -1,7 +1,10 @@
+const uuidv1 = require('uuid/v1');
+
 module.exports = async (db, input) => {
   const timestamp = Date.now();
   const newPoll = {
     ...input,
+    pollId: uuidv1(),
     hashKey: `UserId:${input.userId}`,
     sortKey: `Poll:${timestamp}`,
     choices: input.choices.map((choice, idx) => ({

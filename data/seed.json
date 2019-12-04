@@ -2,6 +2,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:111",
+        "pollId": "poll1",
         "userId": "user1",
         "createTimestamp": 111,
         "question": "private poll 1",
@@ -26,6 +27,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:222",
+        "pollId": "poll2",
         "userId": "user1",
         "createTimestamp": 222,
         "question": "public poll 2",
@@ -48,6 +50,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:111",
+        "pollId": "poll3",
         "userId": "user2",
         "createTimestamp": 111,
         "question": "private poll 3",
@@ -72,6 +75,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:222",
+        "pollId": "poll4",
         "userId": "user2",
         "createTimestamp": 222,
         "question": "public poll 4",
@@ -94,6 +98,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:333",
+        "pollId": "poll5",
         "userId": "user2",
         "createTimestamp": 333,
         "question": "private poll 5",
