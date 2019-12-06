@@ -66,7 +66,7 @@
                 "acceptable": true
             }
         ],
-        "expireTimestamp": 222,
+        "expireTimestamp": 1609459200000,
         "sharedWith": [
             "user1"
         ],
@@ -91,7 +91,7 @@
                 "acceptable": true
             }
         ],
-        "expireTimestamp": 222,
+        "expireTimestamp": 1609459200000,
         "sharedWith": [],
         "sharedWithCount": 0
     },
@@ -137,5 +137,12 @@
         "sortKey": "DirectPoll:333",
         "fromUserId": "user2",
         "createTimestamp": 333
+    },
+    {
+        "hashKey": "UserId:user1",
+        "sortKey": "Vote:poll3",
+        "pollId": "poll3",
+        "vote": 1,
+        "voteTimestamp": 444
     }
 ]
