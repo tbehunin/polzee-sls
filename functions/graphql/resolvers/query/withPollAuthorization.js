@@ -1,3 +1,5 @@
+const { ForbiddenError } = require('apollo-server-lambda');
+
 const withPollAuthorization = (resolver) => {
   const authResolver = async (source, args, context, state) => {
     const data = await resolver(source, args, context, state);
