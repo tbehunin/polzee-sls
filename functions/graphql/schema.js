@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-lambda');
 
 module.exports = gql`
+    scalar GraphQLBigInt
+
     type PollChoice {
         order: Int!
         value: String!
@@ -9,11 +11,11 @@ module.exports = gql`
     type Poll {
         pollId: ID!
         userId: ID!
-        createTimestamp: ID!
+        createTimestamp: GraphQLBigInt!
         question: String!
         choices: [PollChoice]!
         sharedWith: [ID]
-        expireTimestamp: Int!
+        expireTimestamp: GraphQLBigInt!
     }
     input PollChoiceInput {
         value: String!
@@ -23,11 +25,11 @@ module.exports = gql`
         question: String!
         choices: [PollChoiceInput!]!
         sharedWith: [ID!]
-        expireTimestamp: Int!
+        expireTimestamp: GraphQLBigInt!
     }
     type Query {
         polls(userId: ID): [Poll]
-        poll(userId: ID, createTimestamp: ID!): Poll
+        poll(userId: ID, createTimestamp: GraphQLBigInt!): Poll
         directPolls: [Poll]
     }
     type Mutation {

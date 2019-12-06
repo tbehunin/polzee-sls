@@ -1,4 +1,5 @@
+const GraphQLBigInt = require('apollo-type-bigint').default;
 const Query = require('./query');
 const Mutation = require('./mutation');
 
-module.exports = { Query, Mutation };
+module.exports = { GraphQLBigInt: new GraphQLBigInt('safe'), Query, Mutation };

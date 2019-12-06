@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "apollo-server-lambda": "^2.9.7",
+    "apollo-type-bigint": "^0.1.3",
     "graphql": "^14.5.8",
     "serverless-dynamodb-client": "0.0.2",
     "uuid": "^3.3.3"
