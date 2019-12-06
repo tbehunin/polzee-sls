@@ -142,7 +142,18 @@
         "hashKey": "UserId:user1",
         "sortKey": "Vote:poll3",
         "pollId": "poll3",
-        "vote": 1,
+        "selection": [
+            1
+        ],
+        "voteTimestamp": 444
+    },
+    {
+        "hashKey": "UserId:user1",
+        "sortKey": "Vote:poll1",
+        "pollId": "poll1",
+        "selection": [
+            2
+        ],
         "voteTimestamp": 444
     }
 ]

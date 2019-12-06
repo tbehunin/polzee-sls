@@ -7,6 +7,7 @@ module.exports = gql`
         order: Int!
         value: String!
         acceptable: Boolean
+        selected: Boolean
     }
     type Poll {
         pollId: ID!
