@@ -11,7 +11,10 @@ module.exports = async (db, userId, excludePrivate) => {
 
   if (excludePrivate) {
     params.IndexName = 'PollsHashKeyScopeIdx';
-    params.KeyConditionExpression = 'hashKey = :hk AND begins_with(scope, :sk)';
+    params.KeyConditionExpression = 'hashKey = :hk AND begins_with(#scope, :sk)';
+    params.ExpressionAttributeNames = {
+      '#scope': 'scope',
+    };
     params.ExpressionAttributeValues[':sk'] = 'Public:';
   }
 
