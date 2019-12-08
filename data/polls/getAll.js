@@ -1,18 +1,18 @@
 module.exports = async (db, userId, excludePrivate) => {
+  // Default to return all polls
   const params = {
-    KeyConditionExpression: 'hashKey = :hk',
+    TableName: process.env.dbPolls,
+    KeyConditionExpression: 'hashKey = :hk AND begins_with(sortKey, :sk)',
     ExpressionAttributeValues: {
       ':hk': `UserId:${userId}`,
+      ':sk': 'Poll:',
     },
-    TableName: process.env.dbPolls,
   };
+
   if (excludePrivate) {
-    params.IndexName = 'PollsHashKeySharedWithCountIdx';
-    params.KeyConditionExpression = `${params.KeyConditionExpression} AND sharedWithCount = :sharedWithCount`;
-    params.ExpressionAttributeValues = {
-      ...params.ExpressionAttributeValues,
-      ':sharedWithCount': 0,
-    };
+    params.IndexName = 'PollsHashKeyScopeIdx';
+    params.KeyConditionExpression = 'hashKey = :hk AND begins_with(scope, :sk)';
+    params.ExpressionAttributeValues[':sk'] = 'Public:';
   }
 
   const data = await db.query(params).promise();

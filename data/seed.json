@@ -2,6 +2,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:111",
+        "scope": "Private:111",
         "pollId": "poll1",
         "userId": "user1",
         "createTimestamp": 111,
@@ -21,12 +22,12 @@
         "expireTimestamp": 222,
         "sharedWith": [
             "user2"
-        ],
-        "sharedWithCount": 1
+        ]
     },
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:222",
+        "scope": "Public:222",
         "pollId": "poll2",
         "userId": "user1",
         "createTimestamp": 222,
@@ -44,12 +45,12 @@
             }
         ],
         "expireTimestamp": 222,
-        "sharedWith": [],
-        "sharedWithCount": 0
+        "sharedWith": []
     },
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:111",
+        "scope": "Private:111",
         "pollId": "poll3",
         "userId": "user2",
         "createTimestamp": 111,
@@ -69,12 +70,12 @@
         "expireTimestamp": 1609459200000,
         "sharedWith": [
             "user1"
-        ],
-        "sharedWithCount": 1
+        ]
     },
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:222",
+        "scope": "Public:222",
         "pollId": "poll4",
         "userId": "user2",
         "createTimestamp": 222,
@@ -92,12 +93,12 @@
             }
         ],
         "expireTimestamp": 1609459200000,
-        "sharedWith": [],
-        "sharedWithCount": 0
+        "sharedWith": []
     },
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:333",
+        "scope": "Private:333",
         "pollId": "poll5",
         "userId": "user2",
         "createTimestamp": 333,
@@ -117,8 +118,7 @@
         "expireTimestamp": 222,
         "sharedWith": [
             "user3"
-        ],
-        "sharedWithCount": 1
+        ]
     },
     {
         "hashKey": "UserId:user2",

@@ -2,17 +2,18 @@ const uuidv1 = require('uuid/v1');
 
 module.exports = async (db, input) => {
   const timestamp = Date.now();
+  const scope = (input.sharedWith || []).length ? 'Private' : 'Public';
   const newPoll = {
     ...input,
     pollId: uuidv1(),
     hashKey: `UserId:${input.userId}`,
     sortKey: `Poll:${timestamp}`,
+    scope: `${scope}:${timestamp}`,
     choices: input.choices.map((choice, idx) => ({
       ...choice,
       order: idx + 1,
     })),
     createTimestamp: timestamp,
-    sharedWithCount: (input.sharedWith || []).length,
   };
   const params = {
     RequestItems: {
