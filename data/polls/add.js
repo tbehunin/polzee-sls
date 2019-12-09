@@ -1,11 +1,13 @@
 const uuidv1 = require('uuid/v1');
+const data = require('../../data');
 
-module.exports = async (db, input) => {
+module.exports = async (input) => {
   const timestamp = Date.now();
   const scope = (input.sharedWith || []).length ? 'Private' : 'Public';
+  const pollId = uuidv1();
   const newPoll = {
     ...input,
-    pollId: uuidv1(),
+    pollId,
     hashKey: `UserId:${input.userId}`,
     sortKey: `Poll:${timestamp}`,
     scope: `${scope}:${timestamp}`,
@@ -28,12 +30,13 @@ module.exports = async (db, input) => {
             sortKey: `DirectPoll:${timestamp}`,
             fromUserId: input.userId,
             createTimestamp: timestamp,
+            pollId,
           },
         },
       }))),
     },
   };
 
-  await db.batchWrite(params).promise();
+  await data.db.batchWrite(params).promise();
   return newPoll;
 };

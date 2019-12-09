@@ -124,19 +124,22 @@
         "hashKey": "UserId:user2",
         "sortKey": "DirectPoll:111",
         "fromUserId": "user1",
-        "createTimestamp": 111
+        "createTimestamp": 111,
+        "pollId": "poll1"
     },
     {
         "hashKey": "UserId:user1",
         "sortKey": "DirectPoll:111",
         "fromUserId": "user2",
-        "createTimestamp": 111
+        "createTimestamp": 111,
+        "pollId": "poll3"
     },
     {
         "hashKey": "UserId:user3",
         "sortKey": "DirectPoll:333",
         "fromUserId": "user2",
-        "createTimestamp": 333
+        "createTimestamp": 333,
+        "pollId": "poll5"
     },
     {
         "hashKey": "UserId:user1",

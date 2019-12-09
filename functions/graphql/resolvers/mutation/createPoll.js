@@ -1,5 +1,5 @@
 const { ValidationError, ApolloError } = require('apollo-server-lambda');
-const dbPolls = require('../../../../data/polls');
+const add = require('../../../../data/polls/add');
 
 module.exports = async (_, { input }, { userId }) => {
   // Validate input that graphQL doesn't already automatically handle
@@ -12,7 +12,7 @@ module.exports = async (_, { input }, { userId }) => {
 
   let result;
   try {
-    result = await dbPolls.add({ ...input, userId });
+    result = await add({ ...input, userId });
   } catch (error) {
     console.error(error);
     throw new ApolloError(`Error creating poll for user ${userId}`);
