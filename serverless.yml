@@ -62,7 +62,7 @@ functions:
             type: COGNITO_USER_POOLS
             authorizerId: !Ref PolzeeApiGatewayAuthorizer
   graphql:
-    handler: functions/graphql.handler
+    handler: functions/graphql/index.handler
     events:
       - http:
           path: graphql
