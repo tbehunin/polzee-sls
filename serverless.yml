@@ -27,8 +27,7 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs8.10
-
+  runtime: nodejs10.x
   stage: dev
   region: us-west-2
   environment: ${file(env.yml):${self:custom.stage}}
@@ -43,7 +42,11 @@ provider:
       Resource:
         - Fn::GetAtt: [DbPollsRsrc, Arn]
 
+package:
+  individually: true
+
 plugins:
+  - serverless-bundle
   - serverless-dynamodb-local
   - serverless-offline
 

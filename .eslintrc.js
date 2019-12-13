@@ -3,6 +3,7 @@ module.exports = {
     commonjs: true,
     es6: true,
     node: true,
+    'jest/globals': true
   },
   extends: [
     'airbnb-base',
@@ -17,4 +18,5 @@ module.exports = {
   rules: {
     'no-console': 'off',
   },
+  plugins: ['jest'],
 };
