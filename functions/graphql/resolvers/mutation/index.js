@@ -1,5 +1,5 @@
-const createPoll = require('./createPoll');
+import createPoll from './createPoll';
 
-module.exports = {
+export default {
   createPoll,
 };

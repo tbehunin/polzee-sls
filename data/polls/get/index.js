@@ -1,4 +1,4 @@
-const data = require('../../../data');
+import data from '../..';
 
 const get = async (params) => {
   const pollParams = {
@@ -10,7 +10,7 @@ const get = async (params) => {
   return (result || {}).Item;
 };
 
-module.exports = {
+export default {
   poll: async (userId, createTimestamp) => {
     const params = {
       Key: {

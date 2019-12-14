@@ -1,9 +1,9 @@
-const { ApolloError } = require('apollo-server-lambda');
-const batchGet = require('../../../../data/polls/batchGet');
-const query = require('../../../../data/polls/query');
-const pollBuilder = require('./pollBuilder');
+import { ApolloError } from 'apollo-server-lambda';
+import batchGet from '../../../../data/polls/batchGet';
+import query from '../../../../data/polls/query';
+import pollBuilder from './pollBuilder';
 
-module.exports = async (_, args, { userId }) => {
+export default async (_, args, { userId }) => {
   let result;
   try {
     const directPolls = await query.directPolls(userId);

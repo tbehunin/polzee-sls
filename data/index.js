@@ -1,5 +1,5 @@
-const dynamodb = require('serverless-dynamodb-client');
+import dynamodb from 'serverless-dynamodb-client';
 
-module.exports = {
+export default {
   db: dynamodb.doc,
 };

@@ -1,4 +1,4 @@
-const { ForbiddenError } = require('apollo-server-lambda');
+import { ForbiddenError } from 'apollo-server-lambda';
 
 const withPollAuthorization = (resolver) => {
   const authResolver = async (source, args, context, state) => {
@@ -15,4 +15,4 @@ const withPollAuthorization = (resolver) => {
   return authResolver;
 };
 
-module.exports = withPollAuthorization;
+export default withPollAuthorization;

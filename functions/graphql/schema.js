@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-lambda');
+import { gql } from 'apollo-server-lambda';
 
-module.exports = gql`
+export default gql`
     scalar GraphQLBigInt
 
     type PollChoice {

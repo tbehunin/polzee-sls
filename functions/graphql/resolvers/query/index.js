@@ -1,9 +1,9 @@
-const polls = require('./polls');
-const poll = require('./poll');
-const directPolls = require('./directPolls');
-const withPollAuthorization = require('./withPollAuthorization');
+import polls from './polls';
+import poll from './poll';
+import directPolls from './directPolls';
+import withPollAuthorization from './withPollAuthorization';
 
-module.exports = {
+export default {
   polls,
   poll: withPollAuthorization(poll),
   directPolls,

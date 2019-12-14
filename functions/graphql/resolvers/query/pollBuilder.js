@@ -41,4 +41,4 @@ const pollBuilder = (poll, currentUserId) => {
   };
 };
 
-module.exports = pollBuilder;
+export default pollBuilder;

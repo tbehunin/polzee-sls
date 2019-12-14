@@ -1,6 +1,6 @@
-const { ApolloServer } = require('apollo-server-lambda');
-const schema = require('./schema');
-const resolvers = require('./resolvers');
+import { ApolloServer } from 'apollo-server-lambda';
+import schema from './schema';
+import resolvers from './resolvers';
 
 const server = new ApolloServer({
   typeDefs: schema,
@@ -11,7 +11,8 @@ const server = new ApolloServer({
   }),
 });
 
-exports.handler = server.createHandler({
+// eslint-disable-next-line import/prefer-default-export
+export const handler = server.createHandler({
   cors: {
     origin: '*',
     credentials: true,

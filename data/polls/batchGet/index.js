@@ -1,4 +1,4 @@
-const data = require('../../../data');
+import data from '../..';
 
 const batchGet = async (keys) => {
   const pollParams = {
@@ -13,7 +13,7 @@ const batchGet = async (keys) => {
   return ((result || {}).Responses || {})[process.env.dbPolls] || [];
 };
 
-module.exports = {
+export default {
   polls: async (hashSortList) => {
     const keys = hashSortList.map((item) => ({
       hashKey: `UserId:${item.userId}`,

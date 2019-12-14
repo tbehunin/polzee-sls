@@ -1,7 +1,7 @@
-const { ValidationError, ApolloError } = require('apollo-server-lambda');
-const add = require('../../../../data/polls/add');
+import { ValidationError, ApolloError } from 'apollo-server-lambda';
+import add from '../../../../data/polls/add';
 
-module.exports = async (_, { input }, { userId }) => {
+export default async (_, { input }, { userId }) => {
   // Validate input that graphQL doesn't already automatically handle
   if (input.choices.length < 2 || input.choices.length > 6) {
     throw new ValidationError('Two or more choices required - not to exceed six');

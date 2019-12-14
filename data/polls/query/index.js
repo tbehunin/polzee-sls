@@ -1,4 +1,4 @@
-const data = require('../../../data');
+import data from '../..';
 
 const query = async (params) => {
   const pollParams = {
@@ -10,7 +10,7 @@ const query = async (params) => {
   return (result || {}).Items;
 };
 
-module.exports = {
+export default {
   polls: async (userId) => {
     const params = {
       KeyConditionExpression: 'hashKey = :hk AND begins_with(sortKey, :sk)',

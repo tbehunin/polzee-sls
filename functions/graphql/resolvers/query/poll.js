@@ -1,8 +1,8 @@
-const { ApolloError } = require('apollo-server-lambda');
-const get = require('../../../../data/polls/get');
-const pollBuilder = require('./pollBuilder');
+import { ApolloError } from 'apollo-server-lambda';
+import get from '../../../../data/polls/get';
+import pollBuilder from './pollBuilder';
 
-module.exports = async (_, { userId, createTimestamp }, context) => {
+export default async (_, { userId, createTimestamp }, context) => {
   let result;
   try {
     const poll = await get.poll(userId || context.userId, createTimestamp);

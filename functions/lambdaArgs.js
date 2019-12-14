@@ -1,6 +1,7 @@
-const { corsHeaders } = require('./common');
+import corsHeaders from './common';
 
-module.exports.handler = async (event, context) => {
+// eslint-disable-next-line import/prefer-default-export
+export const handler = async (event, context) => {
   const response = {
     statusCode: 200,
     headers: { ...corsHeaders },

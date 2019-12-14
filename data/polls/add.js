@@ -1,7 +1,7 @@
-const uuidv1 = require('uuid/v1');
-const data = require('../../data');
+import uuidv1 from 'uuid/v1';
+import data from '..';
 
-module.exports = async (input) => {
+export default async (input) => {
   const timestamp = Date.now();
   const scope = (input.sharedWith || []).length ? 'Private' : 'Public';
   const pollId = uuidv1();
