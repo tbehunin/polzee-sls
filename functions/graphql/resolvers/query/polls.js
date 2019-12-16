@@ -10,7 +10,7 @@ export default async (_, args, { userId }) => {
     const getPolls = idToQuery !== userId ? query.publicPolls : query.polls;
     const polls = await getPolls(idToQuery);
     if (polls.length) {
-      const votes = await batchGet.votes(idToQuery, (polls || []).map((poll) => poll.pollId));
+      const votes = await batchGet.votes(userId, (polls || []).map((poll) => poll.pollId));
       result = (polls || []).map((poll) => {
         const userVote = (votes || []).find((vote) => vote.pollId === poll.pollId);
         return pollBuilder(poll, userId).withUserVote(userVote).build();
