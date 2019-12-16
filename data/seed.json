@@ -144,6 +144,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Vote:poll3",
+        "userId": "user1",
         "pollId": "poll3",
         "selection": [
             1
@@ -153,6 +154,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Vote:poll1",
+        "userId": "user1",
         "pollId": "poll1",
         "selection": [
             2

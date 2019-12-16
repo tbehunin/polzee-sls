@@ -8,28 +8,42 @@ const pollBuilder = (poll, currentUserId) => {
     },
     build: () => {
       let pollBuild;
+      const {
+        userId: pollUserId,
+        pollId: pollPollId,
+        expireTimestamp: pollExpireTimestamp,
+        choices: pollChoices = [],
+      } = poll;
 
-      if (poll) {
+      if (pollUserId) {
         // Hide the acceptable answers if:
         // - the current user isn't the author of this poll and
         // - it's not expired and
         // - they haven't voted for it yet
         const now = Date.now();
-        const isAuthor = poll.userId === currentUserId;
-        const hasExpired = now < poll.expireTimestamp;
-        const hasVoted = !!obj.userVote;
+        const isAuthor = pollUserId === currentUserId;
+        const hasExpired = pollExpireTimestamp < now;
+        const {
+          userVote: {
+            userId: voteUserId,
+            pollId: votePollId,
+            selection: voteSelection = [],
+          } = {},
+        } = obj;
+        const hasVoted = voteUserId && voteUserId === currentUserId
+          && votePollId && votePollId === pollPollId;
         const hideAcceptable = !isAuthor && !hasExpired && !hasVoted;
 
         // Merge the vote into each choice
         pollBuild = {
           ...poll,
-          choices: poll.choices.map((choice) => {
+          choices: pollChoices.map((choice) => {
             // Default choice value if they have at least voted on the poll
-            const defaultSelected = obj.userVote ? false : undefined;
+            const defaultSelected = hasVoted ? false : undefined;
             return {
               ...choice,
-              selected: !!(((obj.userVote || {}).selection || [])
-                .find((selection) => selection === choice.order)) || defaultSelected,
+              selected: (hasVoted && !!voteSelection.find((selection) => selection === choice.order))
+                || defaultSelected,
               acceptable: hideAcceptable ? undefined : choice.acceptable,
             };
           }),
