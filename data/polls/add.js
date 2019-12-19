@@ -1,10 +1,9 @@
-import uuidv1 from 'uuid/v1';
 import data from '..';
 
 export default async (input) => {
   const timestamp = Date.now();
   const scope = (input.sharedWith || []).length ? 'Private' : 'Public';
-  const pollId = uuidv1();
+  const pollId = `${input.userId}:${timestamp}`;
   const newPoll = {
     ...input,
     pollId,
@@ -28,8 +27,6 @@ export default async (input) => {
           Item: {
             hashKey: `UserId:${userId}`,
             sortKey: `DirectPoll:${timestamp}`,
-            fromUserId: input.userId,
-            createTimestamp: timestamp,
             pollId,
           },
         },

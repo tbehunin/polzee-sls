@@ -7,13 +7,12 @@ export default async (_, args, { userId }) => {
   let result;
   try {
     const directPolls = await query.directPolls(userId);
-    const votes = await batchGet.votes(userId, (directPolls).map((dp) => dp.pollId));
-    const polls = await batchGet.polls(directPolls.map((dp) => ({
-      userId: dp.fromUserId,
-      createTimestamp: dp.createTimestamp,
-    })));
-    result = polls.map((poll) => {
-      const userVote = (votes || []).find((vote) => vote.pollId === poll.pollId);
+    const pollData = await Promise.all([
+      batchGet.polls(directPolls.map((dp) => dp.pollId)),
+      batchGet.votes(userId, (directPolls).map((dp) => dp.pollId)),
+    ]);
+    result = pollData[0].map((poll) => {
+      const userVote = (pollData[1] || []).find((vote) => vote.pollId === poll.pollId);
       return pollBuilder(poll, userId).withUserVote(userVote).build();
     });
   } catch (error) {

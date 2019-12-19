@@ -3,7 +3,7 @@
         "hashKey": "UserId:user1",
         "sortKey": "Poll:111",
         "scope": "Private:111",
-        "pollId": "poll1",
+        "pollId": "user1:111",
         "userId": "user1",
         "createTimestamp": 111,
         "question": "private poll 1",
@@ -16,7 +16,7 @@
             {
                 "order": 2,
                 "value": "bar1",
-                "acceptable": true
+                "acceptable": false
             }
         ],
         "expireTimestamp": 222,
@@ -28,7 +28,7 @@
         "hashKey": "UserId:user1",
         "sortKey": "Poll:222",
         "scope": "Public:222",
-        "pollId": "poll2",
+        "pollId": "user2:222",
         "userId": "user1",
         "createTimestamp": 222,
         "question": "public poll 2",
@@ -36,7 +36,7 @@
             {
                 "order": 1,
                 "value": "foo2",
-                "acceptable": true
+                "acceptable": false
             },
             {
                 "order": 2,
@@ -51,7 +51,7 @@
         "hashKey": "UserId:user2",
         "sortKey": "Poll:111",
         "scope": "Private:111",
-        "pollId": "poll3",
+        "pollId": "user2:111",
         "userId": "user2",
         "createTimestamp": 111,
         "question": "private poll 3",
@@ -64,7 +64,7 @@
             {
                 "order": 2,
                 "value": "bar3",
-                "acceptable": true
+                "acceptable": false
             }
         ],
         "expireTimestamp": 1609459200000,
@@ -76,7 +76,7 @@
         "hashKey": "UserId:user2",
         "sortKey": "Poll:222",
         "scope": "Public:222",
-        "pollId": "poll4",
+        "pollId": "user2:222",
         "userId": "user2",
         "createTimestamp": 222,
         "question": "public poll 4",
@@ -84,7 +84,7 @@
             {
                 "order": 1,
                 "value": "foo4",
-                "acceptable": true
+                "acceptable": false
             },
             {
                 "order": 2,
@@ -99,7 +99,7 @@
         "hashKey": "UserId:user2",
         "sortKey": "Poll:333",
         "scope": "Private:333",
-        "pollId": "poll5",
+        "pollId": "user2:333",
         "userId": "user2",
         "createTimestamp": 333,
         "question": "private poll 5",
@@ -107,7 +107,7 @@
             {
                 "order": 1,
                 "value": "foo5",
-                "acceptable": true
+                "acceptable": false
             },
             {
                 "order": 2,
@@ -123,29 +123,23 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "DirectPoll:111",
-        "fromUserId": "user1",
-        "createTimestamp": 111,
-        "pollId": "poll1"
+        "pollId": "user1:111"
     },
     {
         "hashKey": "UserId:user1",
         "sortKey": "DirectPoll:111",
-        "fromUserId": "user2",
-        "createTimestamp": 111,
-        "pollId": "poll3"
+        "pollId": "user2:111"
     },
     {
         "hashKey": "UserId:user3",
         "sortKey": "DirectPoll:333",
-        "fromUserId": "user2",
-        "createTimestamp": 333,
-        "pollId": "poll5"
+        "pollId": "user2:333"
     },
     {
         "hashKey": "UserId:user1",
-        "sortKey": "Vote:poll3",
+        "sortKey": "Vote:user2:111",
         "userId": "user1",
-        "pollId": "poll3",
+        "pollId": "user2:111",
         "selection": [
             1
         ],
@@ -153,9 +147,9 @@
     },
     {
         "hashKey": "UserId:user1",
-        "sortKey": "Vote:poll1",
+        "sortKey": "Vote:user1:111",
         "userId": "user1",
-        "pollId": "poll1",
+        "pollId": "user1:111",
         "selection": [
             2
         ],

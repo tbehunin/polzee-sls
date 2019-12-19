@@ -30,7 +30,7 @@ export default gql`
     }
     type Query {
         polls(userId: ID): [Poll]
-        poll(userId: ID, createTimestamp: GraphQLBigInt!): Poll
+        poll(pollId: ID!): Poll
         directPolls: [Poll]
     }
     type Mutation {

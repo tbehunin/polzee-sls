@@ -42,7 +42,8 @@ const pollBuilder = (poll, currentUserId) => {
             const defaultSelected = hasVoted ? false : undefined;
             return {
               ...choice,
-              selected: (hasVoted && !!voteSelection.find((selection) => selection === choice.order))
+              selected: (hasVoted
+                && !!voteSelection.find((selection) => selection === choice.order))
                 || defaultSelected,
               acceptable: hideAcceptable ? undefined : choice.acceptable,
             };

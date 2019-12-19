@@ -14,11 +14,14 @@ const batchGet = async (keys) => {
 };
 
 export default {
-  polls: async (hashSortList) => {
-    const keys = hashSortList.map((item) => ({
-      hashKey: `UserId:${item.userId}`,
-      sortKey: `Poll:${item.createTimestamp}`,
-    }));
+  polls: async (pollIdList) => {
+    const keys = pollIdList.map((pollId) => {
+      const pollIdSplit = pollId.split(':');
+      return {
+        hashKey: `UserId:${pollIdSplit[0]}`,
+        sortKey: `Poll:${pollIdSplit[1]}`,
+      };
+    });
     return batchGet(keys);
   },
   votes: async (userId, pollIds) => {

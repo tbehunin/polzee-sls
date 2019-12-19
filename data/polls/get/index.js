@@ -11,11 +11,12 @@ const get = async (params) => {
 };
 
 export default {
-  poll: async (userId, createTimestamp) => {
+  poll: async (pollId) => {
+    const pollIdSplit = pollId.split(':');
     const params = {
       Key: {
-        hashKey: `UserId:${userId}`,
-        sortKey: `Poll:${createTimestamp}`,
+        hashKey: `UserId:${pollIdSplit[0]}`,
+        sortKey: `Poll:${pollIdSplit[1]}`,
       },
     };
     return get(params);
