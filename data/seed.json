@@ -28,7 +28,7 @@
         "hashKey": "UserId:user1",
         "sortKey": "Poll:222",
         "scope": "Public:222",
-        "pollId": "user2:222",
+        "pollId": "user1:222",
         "userId": "user1",
         "createTimestamp": 222,
         "question": "public poll 2",

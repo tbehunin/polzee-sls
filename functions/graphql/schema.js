@@ -28,6 +28,10 @@ export default gql`
         sharedWith: [ID!]
         expireTimestamp: GraphQLBigInt!
     }
+    input VoteInput {
+        pollId: String!
+        selection: [Int]!
+    }
     type Query {
         polls(userId: ID): [Poll]
         poll(pollId: ID!): Poll
@@ -35,5 +39,6 @@ export default gql`
     }
     type Mutation {
         createPoll(input: PollInput): Poll
+        vote(input: VoteInput): Poll
     }
 `;
