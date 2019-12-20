@@ -9,9 +9,15 @@ export default gql`
         acceptable: Boolean
         selected: Boolean
     }
+    type User {
+        userId: ID!
+        username: String!
+        fullName: String!
+        email: String!
+    }
     type Poll {
         pollId: ID!
-        userId: ID!
+        user: User!
         createTimestamp: GraphQLBigInt!
         question: String!
         choices: [PollChoice]!

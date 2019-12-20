@@ -30,4 +30,13 @@ export default {
     };
     return get(params);
   },
+  user: async (userId) => {
+    const params = {
+      Key: {
+        hashKey: `UserId:${userId}`,
+        sortKey: 'Profile',
+      },
+    };
+    return get(params);
+  },
 };
