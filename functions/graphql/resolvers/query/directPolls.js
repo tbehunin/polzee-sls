@@ -9,7 +9,10 @@ export default async (_, args, { currentUserId }) => {
     const directPolls = await query.directPolls(currentUserId);
     const pollData = await Promise.all([
       batchGet.polls(directPolls.map((dp) => dp.pollId)),
-      batchGet.votes(currentUserId, (directPolls).map((dp) => dp.pollId)),
+      batchGet.votes(directPolls.map((dp) => ({
+        userId: currentUserId,
+        pollId: dp.pollId,
+      }))),
     ]);
     result = pollData[0].map((poll) => {
       const userVote = (pollData[1] || []).find((vote) => vote.pollId === poll.pollId);

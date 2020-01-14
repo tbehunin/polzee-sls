@@ -14,8 +14,8 @@ const batchGet = async (keys) => {
 };
 
 export default {
-  polls: async (pollIdList) => {
-    const keys = pollIdList.map((pollId) => {
+  polls: async (pollIds) => {
+    const keys = pollIds.map((pollId) => {
       const pollIdSplit = pollId.split(':');
       return {
         hashKey: `UserId:${pollIdSplit[0]}`,
@@ -24,15 +24,15 @@ export default {
     });
     return batchGet(keys);
   },
-  votes: async (userId, pollIds) => {
-    const keys = pollIds.map((pollId) => ({
-      hashKey: `UserId:${userId}`,
-      sortKey: `Vote:${pollId}`,
+  votes: async (voteKeys) => {
+    const keys = voteKeys.map((voteKey) => ({
+      hashKey: `UserId:${voteKey.userId}`,
+      sortKey: `Vote:${voteKey.pollId}`,
     }));
     return batchGet(keys);
   },
-  users: async (userIdList) => {
-    const keys = userIdList.map((userId) => ({
+  users: async (userIds) => {
+    const keys = userIds.map((userId) => ({
       hashKey: `UserId:${userId}`,
       sortKey: 'Profile',
     }));
