@@ -7,7 +7,7 @@ const server = new ApolloServer({
   resolvers,
   context: (options) => ({
     ...options,
-    userId: options.event.requestContext.authorizer.claims.sub,
+    currentUserId: options.event.requestContext.authorizer.claims.sub,
   }),
 });
 

@@ -3,7 +3,7 @@ import get from '../../../../data/polls/get';
 import put from '../../../../data/polls/put';
 import pollBuilder from '../query/pollBuilder';
 
-export default async (_, { input }, { userId }) => {
+export default async (_, { input }, { currentUserId }) => {
   // Validate input that graphQL doesn't already automatically handle
   if (!input.selection.length) {
     throw new ValidationError('One or more selections required');
@@ -13,11 +13,11 @@ export default async (_, { input }, { userId }) => {
   try {
     pollData = await Promise.all([
       get.poll(input.pollId),
-      get.vote(userId, input.pollId),
+      get.vote(currentUserId, input.pollId),
     ]);
   } catch (error) {
     console.error(error);
-    throw new ApolloError(`Error retrieving poll information for userId '${userId}' and pollId '${input.pollId}'`);
+    throw new ApolloError(`Error retrieving poll information for userId '${currentUserId}' and pollId '${input.pollId}'`);
   }
 
   // Ensure the poll exists
@@ -39,13 +39,13 @@ export default async (_, { input }, { userId }) => {
 
   let result;
   try {
-    const voteResult = await put.vote(userId, input.pollId, input.selection);
+    const voteResult = await put.vote(currentUserId, input.pollId, input.selection);
     console.log(`voteResult: ${JSON.stringify(voteResult)}`);
 
-    result = pollBuilder(pollData[0], userId).withUserVote(voteResult).build();
+    result = pollBuilder(pollData[0], currentUserId).withUserVote(voteResult).build();
   } catch (error) {
     console.error(error);
-    throw new ApolloError(`Error voting on pollId '${input.pollId}' for userId '${userId}'`);
+    throw new ApolloError(`Error voting on pollId '${input.pollId}' for userId '${currentUserId}'`);
   }
   return result;
 };
