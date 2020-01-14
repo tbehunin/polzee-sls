@@ -9,7 +9,7 @@ const batchGet = async (keys) => {
     },
   };
   const result = await data.db.batchGet(pollParams).promise();
-  console.log('batchGet result', result);
+  console.log('batchGet keys', keys, 'result', result);
   return ((result || {}).Responses || {})[process.env.dbPolls] || [];
 };
 
@@ -28,6 +28,13 @@ export default {
     const keys = pollIds.map((pollId) => ({
       hashKey: `UserId:${userId}`,
       sortKey: `Vote:${pollId}`,
+    }));
+    return batchGet(keys);
+  },
+  users: async (userIdList) => {
+    const keys = userIdList.map((userId) => ({
+      hashKey: `UserId:${userId}`,
+      sortKey: 'Profile',
     }));
     return batchGet(keys);
   },

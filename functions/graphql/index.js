@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-lambda';
 import schema from './schema';
 import resolvers from './resolvers';
+import loaders from './dataLoaders';
 
 const server = new ApolloServer({
   typeDefs: schema,
@@ -8,6 +9,7 @@ const server = new ApolloServer({
   context: (options) => ({
     ...options,
     currentUserId: options.event.requestContext.authorizer.claims.sub,
+    loaders,
   }),
 });
 
