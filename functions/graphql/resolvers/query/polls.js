@@ -10,10 +10,12 @@ export default async (_, args, { currentUserId, loaders }) => {
     const getPolls = idToQuery !== currentUserId ? query.publicPolls : query.polls;
     const polls = await getPolls(idToQuery);
     if (polls.length) {
-      const votes = await loaders.vote.loadMany((polls || []).map((poll) => ({
-        userId: currentUserId,
-        pollId: poll.pollId,
-      })));
+      const votes = await loaders.vote.loadMany((polls || [])
+        .filter((poll) => !poll)
+        .map((poll) => ({
+          userId: currentUserId,
+          pollId: poll.pollId,
+        })));
       result = (polls || []).map((poll) => {
         const userVote = (votes || []).find((vote) => vote.pollId === poll.pollId);
         return pollBuilder(poll, currentUserId).withUserVote(userVote).build();

@@ -14,8 +14,8 @@ export default async (_, args, { currentUserId, loaders }) => {
         pollId: dp.pollId,
       }))),
     ]);
-    result = pollData[0].map((poll) => {
-      const userVote = (pollData[1] || []).find((vote) => vote.pollId === poll.pollId);
+    result = pollData[0].filter((poll) => !poll).map((poll) => {
+      const userVote = (pollData[1] || []).filter((vote) => !vote).find((vote) => vote.pollId === poll.pollId);
       return pollBuilder(poll, currentUserId).withUserVote(userVote).build();
     });
   } catch (error) {
