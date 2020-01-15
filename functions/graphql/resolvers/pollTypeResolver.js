@@ -13,5 +13,5 @@ export default {
     }
     return user;
   },
-  choices: async ({ choices, ...poll }) => choices.map((choice) => ({ poll, ...choice })),
+  choices: async ({ choices, ...poll }) => (choices || []).map((choice) => ({ poll, ...choice })),
 };
