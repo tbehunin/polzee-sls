@@ -1,5 +1,5 @@
-import createPoll from './createPoll';
-import vote from './vote';
+import createPoll from './createPollResolver';
+import vote from './voteResolver';
 
 export default {
   createPoll,

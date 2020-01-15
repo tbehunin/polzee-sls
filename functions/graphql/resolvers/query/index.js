@@ -1,6 +1,6 @@
-import polls from './polls';
-import poll from './poll';
-import directPolls from './directPolls';
+import polls from './pollsResolver';
+import poll from './pollResolver';
+import directPolls from './directPollsResolver';
 import withPollAuthorization from './withPollAuthorization';
 
 export default {
