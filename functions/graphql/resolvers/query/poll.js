@@ -1,14 +1,9 @@
 import { ApolloError } from 'apollo-server-lambda';
-import get from '../../../../data/polls/get';
-import pollBuilder from './pollBuilder';
 
-export default async (_, { pollId }, { currentUserId, loaders }) => {
+export default async (_, { pollId }, { loaders }) => {
   let result;
   try {
-    const pollData = await Promise.all([loaders.poll.load(pollId), loaders.vote.load({ userId: currentUserId, pollId })]);
-    if (pollData[0]) {
-      result = pollBuilder(pollData[0], currentUserId).withUserVote(pollData[1]).build();
-    }
+    result = await loaders.poll.load(pollId);
   } catch (error) {
     console.error(error);
     throw new ApolloError(`Error getting poll ${pollId}`);
