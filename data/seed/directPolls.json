@@ -1,0 +1,17 @@
+[
+  {
+    "hashKey": "UserId:user2",
+    "sortKey": "DirectPoll:111",
+    "pollId": "user1:111"
+  },
+  {
+    "hashKey": "UserId:user1",
+    "sortKey": "DirectPoll:111",
+    "pollId": "user2:111"
+  },
+  {
+    "hashKey": "UserId:user3",
+    "sortKey": "DirectPoll:333",
+    "pollId": "user2:333"
+  }
+]

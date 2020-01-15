@@ -23,7 +23,13 @@ custom:
       common:
         sources:
           - table: ${self:custom.dbPolls}
-            sources: [./data/seed/seed.json, ./data/seed/users.json]
+            sources:
+              [
+                ./data/seed/seed.json,
+                ./data/seed/users.json,
+                ./data/seed/directPolls.json,
+                ./data/seed/votes.json,
+              ]
 
 provider:
   name: aws

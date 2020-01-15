@@ -122,37 +122,25 @@
     },
     {
         "hashKey": "UserId:user2",
-        "sortKey": "DirectPoll:111",
-        "pollId": "user1:111"
-    },
-    {
-        "hashKey": "UserId:user1",
-        "sortKey": "DirectPoll:111",
-        "pollId": "user2:111"
-    },
-    {
-        "hashKey": "UserId:user3",
-        "sortKey": "DirectPoll:333",
-        "pollId": "user2:333"
-    },
-    {
-        "hashKey": "UserId:user1",
-        "sortKey": "Vote:user2:111",
-        "userId": "user1",
-        "pollId": "user2:111",
-        "selection": [
-            1
+        "sortKey": "Poll:444",
+        "scope": "Public:444",
+        "pollId": "user2:444",
+        "userId": "user2",
+        "createTimestamp": 444,
+        "question": "public poll 6",
+        "choices": [
+            {
+                "order": 1,
+                "value": "foo4",
+                "acceptable": false
+            },
+            {
+                "order": 2,
+                "value": "bar4",
+                "acceptable": true
+            }
         ],
-        "voteTimestamp": 444
-    },
-    {
-        "hashKey": "UserId:user1",
-        "sortKey": "Vote:user1:111",
-        "userId": "user1",
-        "pollId": "user1:111",
-        "selection": [
-            2
-        ],
-        "voteTimestamp": 444
+        "expireTimestamp": 1609459200000,
+        "sharedWith": []
     }
 ]
