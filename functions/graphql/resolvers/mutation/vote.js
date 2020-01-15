@@ -3,7 +3,7 @@ import get from '../../../../data/polls/get';
 import put from '../../../../data/polls/put';
 import pollBuilder from '../query/pollBuilder';
 
-export default async (_, { input }, { currentUserId }) => {
+export default async (_, { input }, { currentUserId, loaders }) => {
   // Validate input that graphQL doesn't already automatically handle
   if (!input.selection.length) {
     throw new ValidationError('One or more selections required');
@@ -12,8 +12,8 @@ export default async (_, { input }, { currentUserId }) => {
   let pollData;
   try {
     pollData = await Promise.all([
-      get.poll(input.pollId),
-      get.vote(currentUserId, input.pollId),
+      loaders.poll.load(input.pollId),
+      loaders.vote.load({ userId: currentUserId, pollId: input.pollId }),
     ]);
   } catch (error) {
     console.error(error);

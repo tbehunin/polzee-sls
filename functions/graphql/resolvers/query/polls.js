@@ -3,14 +3,14 @@ import query from '../../../../data/polls/query';
 import batchGet from '../../../../data/polls/batchGet';
 import pollBuilder from './pollBuilder';
 
-export default async (_, args, { currentUserId }) => {
+export default async (_, args, { currentUserId, loaders }) => {
   const idToQuery = args.userId || currentUserId;
   let result;
   try {
     const getPolls = idToQuery !== currentUserId ? query.publicPolls : query.polls;
     const polls = await getPolls(idToQuery);
     if (polls.length) {
-      const votes = await batchGet.votes((polls || []).map((poll) => ({
+      const votes = await loaders.vote.loadMany((polls || []).map((poll) => ({
         userId: currentUserId,
         pollId: poll.pollId,
       })));

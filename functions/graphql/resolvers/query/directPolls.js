@@ -3,13 +3,13 @@ import batchGet from '../../../../data/polls/batchGet';
 import query from '../../../../data/polls/query';
 import pollBuilder from './pollBuilder';
 
-export default async (_, args, { currentUserId }) => {
+export default async (_, args, { currentUserId, loaders }) => {
   let result;
   try {
     const directPolls = await query.directPolls(currentUserId);
     const pollData = await Promise.all([
-      batchGet.polls(directPolls.map((dp) => dp.pollId)),
-      batchGet.votes(directPolls.map((dp) => ({
+      loaders.poll.loadMany(directPolls.map((dp) => dp.pollId)),
+      loaders.vote.loadMany(directPolls.map((dp) => ({
         userId: currentUserId,
         pollId: dp.pollId,
       }))),
