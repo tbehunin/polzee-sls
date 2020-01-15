@@ -16,9 +16,9 @@ const votesLoader = new DataLoader(async (keys) => {
   const votes = await batchGet.votes(keys);
   return keys.map((key) => votes.find(
     (vote) => vote.userId === key.userId && vote.pollId === key.pollId,
-  ), {
-    cacheKeyFn: ({ userId, pollId }) => hash({ userId, pollId }),
-  });
+  ));
+}, {
+  cacheKeyFn: ({ userId, pollId }) => hash({ userId, pollId }),
 });
 
 export default {
