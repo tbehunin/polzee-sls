@@ -45,4 +45,24 @@ export default {
     };
     return query(params);
   },
+  followers: async (userId) => {
+    const params = {
+      ExpressionAttributeValues: {
+        ':hk': `UserId:${userId}`,
+        ':sk': 'Follower:',
+      },
+      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+    };
+    return query(params);
+  },
+  following: async (userId) => {
+    const params = {
+      ExpressionAttributeValues: {
+        ':hk': `UserId:${userId}`,
+        ':sk': 'Following:',
+      },
+      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+    };
+    return query(params);
+  },
 };

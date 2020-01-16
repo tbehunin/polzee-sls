@@ -1,0 +1,9 @@
+[
+  {
+    "hashKey": "UserId:user1",
+    "sortKey": "Following:111",
+    "userId": "user1",
+    "otherUserId": "user2",
+    "timestamp": "111"
+  }
+]
