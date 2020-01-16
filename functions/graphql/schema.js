@@ -42,6 +42,7 @@ export default gql`
         polls(userId: ID): [Poll]
         poll(pollId: ID!): Poll
         directPolls: [Poll]
+        user(userId: ID!): User
     }
     type Mutation {
         createPoll(input: PollInput): Poll
