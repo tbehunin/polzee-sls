@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-lambda';
 
-export default ['username', 'fullName', 'email'].reduce((acc, prop) => {
+export default ['username', 'fullName', 'email', 'bio', 'private'].reduce((acc, prop) => {
   acc[prop] = async ({ userId }, _, { loaders }) => {
     let user;
     try {

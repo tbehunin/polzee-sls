@@ -5,7 +5,9 @@
     "userId": "user1",
     "username": "tdawg",
     "fullName": "Todd Behunin",
-    "email": "todd@email.com"
+    "email": "todd@email.com",
+    "bio": "nerd",
+    "private": false
   },
   {
     "hashKey": "UserId:user2",
@@ -13,6 +15,8 @@
     "userId": "user2",
     "username": "ash",
     "fullName": "Ashlee Behunin",
-    "email": "ashlee@email.com"
+    "email": "ashlee@email.com",
+    "bio": "queen",
+    "private": true
   }
 ]

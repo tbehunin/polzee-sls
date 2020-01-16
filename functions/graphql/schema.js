@@ -14,6 +14,8 @@ export default gql`
         username: String!
         fullName: String!
         email: String!
+        bio: String!
+        private: Boolean!
     }
     type Poll {
         pollId: ID!
