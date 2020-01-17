@@ -2,6 +2,7 @@
   {
     "hashKey": "UserId:user1",
     "sortKey": "Following:111",
+    "sortData1": "FollowOtherUserId:user2",
     "userId": "user1",
     "otherUserId": "user2",
     "timestamp": "111"

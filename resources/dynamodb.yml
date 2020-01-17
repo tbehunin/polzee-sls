@@ -10,6 +10,8 @@ Resources:
           AttributeType: S
         - AttributeName: scope
           AttributeType: S
+        - AttributeName: sortData1
+          AttributeType: S
         # - AttributeName: sharedPoll
         #   AttributeType: N
       KeySchema:
@@ -24,6 +26,14 @@ Resources:
             - AttributeName: hashKey
               KeyType: HASH
             - AttributeName: scope
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: PollsHashKeySortData1Idx
+          KeySchema:
+            - AttributeName: hashKey
+              KeyType: HASH
+            - AttributeName: sortData1
               KeyType: RANGE
           Projection:
             ProjectionType: ALL

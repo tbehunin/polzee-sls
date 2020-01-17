@@ -51,5 +51,6 @@ export default gql`
     type Mutation {
         createPoll(input: PollInput): Poll
         vote(input: VoteInput): Poll
+        toggleFollow(userId: ID!): Boolean
     }
 `;

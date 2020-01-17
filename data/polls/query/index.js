@@ -65,4 +65,16 @@ export default {
     };
     return query(params);
   },
+  follower: async (userId, otherUserId) => {
+    const params = {
+      IndexName: 'PollsHashKeySortData1Idx',
+      KeyConditionExpression: 'hashKey = :hk AND sortData1 = :sk',
+      ExpressionAttributeValues: {
+        ':hk': `UserId:${userId}`,
+        ':sk': `FollowOtherUserId:${otherUserId}`,
+      },
+    };
+    const follow = await query(params);
+    return follow[0];
+  },
 };
