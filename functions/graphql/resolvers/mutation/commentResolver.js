@@ -2,7 +2,6 @@ import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lamb
 import put from '../../../../data/polls/put';
 
 export default async (_, { pollId, comment }, { currentUserId, loaders }) => {
-  // Validate pollId exists
   let pollData;
   try {
     pollData = await Promise.all([
