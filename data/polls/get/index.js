@@ -1,3 +1,4 @@
+import { Base64 } from 'js-base64';
 import data from '../..';
 
 const get = async (params) => {
@@ -12,7 +13,7 @@ const get = async (params) => {
 
 export default {
   poll: async (pollId) => {
-    const pollIdSplit = pollId.split(':');
+    const pollIdSplit = Base64.decode(pollId).split(':');
     const params = {
       Key: {
         hashKey: `UserId:${pollIdSplit[0]}`,

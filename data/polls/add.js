@@ -1,9 +1,10 @@
+import { Base64 } from 'js-base64';
 import data from '..';
 
 export default async (input) => {
   const timestamp = Date.now();
   const scope = (input.sharedWith || []).length ? 'Private' : 'Public';
-  const pollId = `${input.userId}:${timestamp}`;
+  const pollId = Base64.encode(`${input.userId}:${timestamp}`);
   const newPoll = {
     ...input,
     pollId,

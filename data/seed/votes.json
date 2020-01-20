@@ -1,9 +1,9 @@
 [
   {
     "hashKey": "UserId:user1",
-    "sortKey": "Vote:user2:111",
+    "sortKey": "Vote:dXNlcjI6MTEx",
     "userId": "user1",
-    "pollId": "user2:111",
+    "pollId": "dXNlcjI6MTEx",
     "selection": [
       1
     ],
@@ -11,9 +11,9 @@
   },
   {
     "hashKey": "UserId:user1",
-    "sortKey": "Vote:user2:444",
+    "sortKey": "Vote:dXNlcjI6NDQ0",
     "userId": "user1",
-    "pollId": "user2:444",
+    "pollId": "dXNlcjI6NDQ0",
     "selection": [
       1
     ],
@@ -21,9 +21,9 @@
   },
   {
     "hashKey": "UserId:user1",
-    "sortKey": "Vote:user1:111",
+    "sortKey": "Vote:dXNlcjE6MTEx",
     "userId": "user1",
-    "pollId": "user1:111",
+    "pollId": "dXNlcjE6MTEx",
     "selection": [
       2
     ],

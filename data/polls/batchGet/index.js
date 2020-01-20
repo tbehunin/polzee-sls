@@ -1,3 +1,4 @@
+import { Base64 } from 'js-base64';
 import data from '../..';
 
 const batchGet = async (keys) => {
@@ -16,7 +17,7 @@ const batchGet = async (keys) => {
 export default {
   polls: async (pollIds) => {
     const keys = pollIds.map((pollId) => {
-      const pollIdSplit = pollId.split(':');
+      const pollIdSplit = Base64.decode(pollId).split(':');
       return {
         hashKey: `UserId:${pollIdSplit[0]}`,
         sortKey: `Poll:${pollIdSplit[1]}`,

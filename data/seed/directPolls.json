@@ -2,16 +2,16 @@
   {
     "hashKey": "UserId:user2",
     "sortKey": "DirectPoll:111",
-    "pollId": "user1:111"
+    "pollId": "dXNlcjE6MTEx"
   },
   {
     "hashKey": "UserId:user1",
     "sortKey": "DirectPoll:111",
-    "pollId": "user2:111"
+    "pollId": "dXNlcjI6MTEx"
   },
   {
     "hashKey": "UserId:user3",
     "sortKey": "DirectPoll:333",
-    "pollId": "user2:333"
+    "pollId": "dXNlcjI6MzMz"
   }
 ]
