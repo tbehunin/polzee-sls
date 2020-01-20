@@ -31,6 +31,7 @@ custom:
                 ./data/seed/votes.json,
                 ./data/seed/following.json,
                 ./data/seed/followers.json,
+                ./data/seed/comments.json,
               ]
 
 provider:

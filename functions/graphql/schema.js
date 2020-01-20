@@ -3,6 +3,11 @@ import { gql } from 'apollo-server-lambda';
 export default gql`
     scalar GraphQLBigInt
 
+    type Comment {
+        user: User!
+        comment: String!
+        createTimestamp: GraphQLBigInt!
+    }
     type PollChoice {
         order: Int!
         value: String!
@@ -25,6 +30,7 @@ export default gql`
         choices: [PollChoice]!
         sharedWith: [ID]
         expireTimestamp: GraphQLBigInt!
+        comments: [Comment]!
     }
     input PollChoiceInput {
         value: String!
@@ -52,5 +58,6 @@ export default gql`
         createPoll(input: PollInput): Poll
         vote(input: VoteInput): Poll
         toggleFollow(userId: ID!): Boolean
+        comment(pollId: ID!, comment: String!): Poll
     }
 `;

@@ -1,0 +1,12 @@
+[
+  {
+    "hashKey": "UserId:user1",
+    "sortKey": "Comment:dXNlcjI6MjIy:1234",
+    "hashData1": "PollId:dXNlcjI6MjIy",
+    "sortData1": "Comment:1234:user1",
+    "userId": "user1",
+    "pollId": "dXNlcjI6MjIy",
+    "comment": "this is a comment",
+    "createTimestamp": "1234"
+  }
+]

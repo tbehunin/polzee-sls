@@ -23,4 +23,21 @@ export default {
     await put(params);
     return params.Item;
   },
+  comment: async (userId, pollId, comment) => {
+    const timestamp = Date.now();
+    const params = {
+      Item: {
+        hashKey: `UserId:${userId}`,
+        sortKey: `Comment:${pollId}:${timestamp}`,
+        hashData1: `PollId:${pollId}`,
+        sortData1: `Comment:${timestamp}:${userId}`,
+        userId,
+        pollId,
+        comment,
+        createTimestamp: timestamp,
+      },
+    };
+    await put(params);
+    return params.Item;
+  },
 };

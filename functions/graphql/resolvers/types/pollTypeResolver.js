@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-server-lambda';
+import query from '../../../../data/polls/query';
 
 const pollService = {
   getPoll: async (pollId, pollLoader) => {
@@ -36,5 +37,9 @@ export default {
   user: async ({ pollId }, _, { loaders }) => {
     const poll = await pollService.getPoll(pollId, loaders.poll);
     return { userId: poll.userId };
+  },
+  comments: async ({ pollId }, _, { loaders }) => {
+    const poll = await pollService.getPoll(pollId, loaders.poll);
+    return query.comments(poll.pollId);
   },
 };
