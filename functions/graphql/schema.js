@@ -62,7 +62,7 @@ export default gql`
     type Mutation {
         createPoll(input: PollInput): Poll
         vote(input: VoteInput): Poll
-        toggleFollow(userId: ID!): Boolean
+        toggleFollow(userId: ID!): User
         comment(pollId: ID!, comment: String!): Poll
         toggleLike(pollId: ID!): Poll
     }

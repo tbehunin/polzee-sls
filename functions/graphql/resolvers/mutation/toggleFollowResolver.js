@@ -1,6 +1,5 @@
 import { ValidationError, ApolloError } from 'apollo-server-lambda';
 import toggle from '../../../../data/polls/toggle';
-import query from '../../../../data/polls/query';
 
 export default async (_, { userId }, { currentUserId, loaders }) => {
   // Validate userId is different from currentUserId
@@ -19,8 +18,9 @@ export default async (_, { userId }, { currentUserId, loaders }) => {
     const toggleResult = await toggle.follow(currentUserId, userId);
     console.log(`toggleResult: ${JSON.stringify(toggleResult)}`);
 
-    const follower = await query.follower(currentUserId, userId);
-    result = !!follower;
+    // Clear the cache now and return a fresh poll
+    loaders.user.clear(userId);
+    result = await loaders.user.load(userId);
   } catch (error) {
     console.error(error);
     throw new ApolloError(`Error toggling follow of userId '${userId}' for userId '${currentUserId}'`);
