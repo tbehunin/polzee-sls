@@ -8,6 +8,10 @@ export default gql`
         comment: String!
         createTimestamp: GraphQLBigInt!
     }
+    type Like {
+        user: User!
+        timestamp: GraphQLBigInt!
+    }
     type PollChoice {
         order: Int!
         value: String!
@@ -33,6 +37,7 @@ export default gql`
         sharedWith: [ID]
         expireTimestamp: GraphQLBigInt!
         comments: [Comment]!
+        likes: [Like]!
     }
     input PollChoiceInput {
         value: String!
@@ -45,7 +50,7 @@ export default gql`
         expireTimestamp: GraphQLBigInt!
     }
     input VoteInput {
-        pollId: String!
+        pollId: ID!
         selection: [Int]!
     }
     type Query {
@@ -59,5 +64,6 @@ export default gql`
         vote(input: VoteInput): Poll
         toggleFollow(userId: ID!): Boolean
         comment(pollId: ID!, comment: String!): Poll
+        toggleLike(pollId: ID!): Poll
     }
 `;

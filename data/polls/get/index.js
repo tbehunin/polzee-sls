@@ -40,4 +40,13 @@ export default {
     };
     return get(params);
   },
+  like: async (userId, pollId) => {
+    const params = {
+      Key: {
+        hashKey: `UserId:${userId}`,
+        sortKey: `Like:${pollId}`,
+      },
+    };
+    return get(params);
+  },
 };

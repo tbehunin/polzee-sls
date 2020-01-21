@@ -40,4 +40,20 @@ export default {
     await put(params);
     return params.Item;
   },
+  like: async (userId, pollId) => {
+    const timestamp = Date.now();
+    const params = {
+      Item: {
+        hashKey: `UserId:${userId}`,
+        sortKey: `Like:${pollId}`,
+        hashData1: `PollId:${pollId}`,
+        sortData1: `Like:${timestamp}:${userId}`,
+        userId,
+        pollId,
+        timestamp,
+      },
+    };
+    await put(params);
+    return params.Item;
+  },
 };

@@ -32,6 +32,7 @@ custom:
                 ./data/seed/following.json,
                 ./data/seed/followers.json,
                 ./data/seed/comments.json,
+                ./data/seed/likes.json,
               ]
 
 provider:

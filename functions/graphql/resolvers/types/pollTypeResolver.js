@@ -50,4 +50,8 @@ export default {
     const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
     return query.comments(poll.pollId);
   },
+  likes: async ({ pollId }, _, { currentUserId, loaders }) => {
+    const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
+    return query.likes(poll.pollId);
+  },
 };

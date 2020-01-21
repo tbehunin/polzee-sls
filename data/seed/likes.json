@@ -1,0 +1,11 @@
+[
+  {
+    "hashKey": "UserId:user1",
+    "sortKey": "Like:dXNlcjI6MTEx",
+    "hashData1": "PollId:dXNlcjI6MTEx",
+    "sortData1": "Like:444:user1",
+    "userId": "user1",
+    "pollId": "dXNlcjI6MTEx",
+    "timestamp": 444
+  }
+]

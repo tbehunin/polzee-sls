@@ -1,5 +1,8 @@
 import data from '..';
 import query from './query';
+import get from './get';
+import put from './put';
+import del from './delete';
 
 const buildDeleteRequestItem = (sortType, userId, timestamp) => ({
   DeleteRequest: {
@@ -50,5 +53,12 @@ export default {
 
     await data.db.batchWrite(params).promise();
     return result;
+  },
+  like: async (userId, pollId) => {
+    // Check to see if follow relationship exists
+    const liked = await get.like(userId, pollId);
+
+    const operation = liked ? del.like : put.like;
+    return operation(userId, pollId);
   },
 };

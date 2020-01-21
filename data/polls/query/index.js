@@ -85,4 +85,15 @@ export default {
     };
     return query(params);
   },
+  likes: async (pollId) => {
+    const params = {
+      IndexName: 'PollsHashData1SortData1Idx',
+      KeyConditionExpression: 'hashData1 = :hk AND begins_with(sortData1, :sk)',
+      ExpressionAttributeValues: {
+        ':hk': `PollId:${pollId}`,
+        ':sk': 'Like:',
+      },
+    };
+    return query(params);
+  },
 };
