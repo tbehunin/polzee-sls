@@ -21,6 +21,8 @@ export default gql`
         email: String!
         bio: String!
         private: Boolean!
+        followers: [User]
+        following: [User]
     }
     type Poll {
         pollId: ID!
@@ -51,8 +53,6 @@ export default gql`
         poll(pollId: ID!): Poll
         directPolls: [Poll]
         user(userId: ID!): User
-        followers(userId: ID): [User]
-        following(userId: ID): [User]
     }
     type Mutation {
         createPoll(input: PollInput): Poll
