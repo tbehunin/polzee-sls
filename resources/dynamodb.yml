@@ -8,8 +8,6 @@ Resources:
           AttributeType: S
         - AttributeName: sortKey
           AttributeType: S
-        - AttributeName: scope
-          AttributeType: S
         - AttributeName: sortData1
           AttributeType: S
         - AttributeName: hashData1
@@ -21,14 +19,6 @@ Resources:
           KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
       GlobalSecondaryIndexes:
-        - IndexName: PollsHashKeyScopeIdx
-          KeySchema:
-            - AttributeName: hashKey
-              KeyType: HASH
-            - AttributeName: scope
-              KeyType: RANGE
-          Projection:
-            ProjectionType: ALL
         - IndexName: PollsHashKeySortData1Idx
           KeySchema:
             - AttributeName: hashKey

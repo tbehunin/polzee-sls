@@ -10,7 +10,7 @@ export default async (input) => {
     pollId,
     hashKey: `UserId:${input.userId}`,
     sortKey: `Poll:${timestamp}`,
-    scope: `${scope}:${timestamp}`,
+    sortData1: `${scope}:${timestamp}`,
     choices: input.choices.map((choice, idx) => ({
       ...choice,
       order: idx + 1,

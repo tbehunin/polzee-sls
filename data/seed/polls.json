@@ -2,7 +2,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:111",
-        "scope": "Private:111",
+        "sortData1": "Private:111",
         "pollId": "dXNlcjE6MTEx",
         "userId": "user1",
         "createTimestamp": 111,
@@ -27,7 +27,7 @@
     {
         "hashKey": "UserId:user1",
         "sortKey": "Poll:222",
-        "scope": "Public:222",
+        "sortData1": "Public:222",
         "pollId": "dXNlcjE6MjIy",
         "userId": "user1",
         "createTimestamp": 222,
@@ -50,7 +50,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:111",
-        "scope": "Private:111",
+        "sortData1": "Private:111",
         "pollId": "dXNlcjI6MTEx",
         "userId": "user2",
         "createTimestamp": 111,
@@ -75,7 +75,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:222",
-        "scope": "Public:222",
+        "sortData1": "Public:222",
         "pollId": "dXNlcjI6MjIy",
         "userId": "user2",
         "createTimestamp": 222,
@@ -98,7 +98,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:333",
-        "scope": "Private:333",
+        "sortData1": "Private:333",
         "pollId": "dXNlcjI6MzMz",
         "userId": "user2",
         "createTimestamp": 333,
@@ -123,7 +123,7 @@
     {
         "hashKey": "UserId:user2",
         "sortKey": "Poll:444",
-        "scope": "Public:444",
+        "sortData1": "Public:444",
         "pollId": "dXNlcjI6NDQ0",
         "userId": "user2",
         "createTimestamp": 444,

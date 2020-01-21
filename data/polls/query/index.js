@@ -23,11 +23,8 @@ export default {
   },
   publicPolls: async (userId) => {
     const params = {
-      IndexName: 'PollsHashKeyScopeIdx',
-      KeyConditionExpression: 'hashKey = :hk AND begins_with(#scope, :sk)',
-      ExpressionAttributeNames: {
-        '#scope': 'scope',
-      },
+      IndexName: 'PollsHashKeySortData1Idx',
+      KeyConditionExpression: 'hashKey = :hk AND begins_with(sortData1, :sk)',
       ExpressionAttributeValues: {
         ':hk': `UserId:${userId}`,
         ':sk': 'Public:',
