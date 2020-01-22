@@ -25,7 +25,7 @@ const pollService = {
   },
 };
 
-const pollProps = ['pollId', 'createTimestamp', 'question', 'sharedWith', 'expireTimestamp']
+const basicPropResolvers = ['pollId', 'createTimestamp', 'question', 'sharedWith', 'expireTimestamp']
   .reduce((acc, prop) => {
     acc[prop] = async ({ pollId }, _, { currentUserId, loaders }) => {
       const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
@@ -34,8 +34,18 @@ const pollProps = ['pollId', 'createTimestamp', 'question', 'sharedWith', 'expir
     return acc;
   }, {});
 
+const toManyPropResolvers = ['comments', 'likes', 'votes']
+  .reduce((acc, prop) => {
+    acc[prop] = async ({ pollId }, _, { currentUserId, loaders }) => {
+      const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
+      return query[prop](poll.pollId);
+    };
+    return acc;
+  }, {});
+
 export default {
-  ...pollProps,
+  ...basicPropResolvers,
+  ...toManyPropResolvers,
   choices: async ({ pollId }, _, { currentUserId, loaders }) => {
     // Some choice props need info from the poll in order to validate and resolve properly
     // so send the poll data along with EACH choice.
@@ -45,13 +55,5 @@ export default {
   user: async ({ pollId }, _, { currentUserId, loaders }) => {
     const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
     return { userId: poll.userId };
-  },
-  comments: async ({ pollId }, _, { currentUserId, loaders }) => {
-    const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
-    return query.comments(poll.pollId);
-  },
-  likes: async ({ pollId }, _, { currentUserId, loaders }) => {
-    const poll = await pollService.getPoll(pollId, currentUserId, loaders.poll);
-    return query.likes(poll.pollId);
   },
 };

@@ -11,13 +11,17 @@ const put = async (params) => {
 
 export default {
   vote: async (userId, pollId, selection) => {
+    const timestamp = Date.now();
     const params = {
       Item: {
         hashKey: `UserId:${userId}`,
         sortKey: `Vote:${pollId}`,
+        hashData1: `PollId:${pollId}`,
+        sortData1: `Vote:${timestamp}:${userId}`,
         userId,
         pollId,
         selection,
+        timestamp,
       },
     };
     await put(params);

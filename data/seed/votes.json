@@ -2,31 +2,37 @@
   {
     "hashKey": "UserId:user1",
     "sortKey": "Vote:dXNlcjI6MTEx",
+    "hashData1": "PollId:dXNlcjI6MTEx",
+    "sortData1": "Vote:444:user1",
     "userId": "user1",
     "pollId": "dXNlcjI6MTEx",
     "selection": [
       1
     ],
-    "voteTimestamp": 444
+    "timestamp": 444
   },
   {
     "hashKey": "UserId:user1",
     "sortKey": "Vote:dXNlcjI6NDQ0",
+    "hashData1": "PollId:dXNlcjI6NDQ0",
+    "sortData1": "Vote:444:user1",
     "userId": "user1",
     "pollId": "dXNlcjI6NDQ0",
     "selection": [
       1
     ],
-    "voteTimestamp": 444
+    "timestamp": 444
   },
   {
     "hashKey": "UserId:user1",
     "sortKey": "Vote:dXNlcjE6MTEx",
+    "hashData1": "PollId:dXNlcjE6MTEx",
+    "sortData1": "Vote:444:user1",
     "userId": "user1",
     "pollId": "dXNlcjE6MTEx",
     "selection": [
       2
     ],
-    "voteTimestamp": 444
+    "timestamp": 444
   }
 ]

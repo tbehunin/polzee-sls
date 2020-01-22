@@ -12,6 +12,10 @@ export default gql`
         user: User!
         timestamp: GraphQLBigInt!
     }
+    type Vote {
+        user: User!
+        timestamp: GraphQLBigInt!
+    }
     type PollChoice {
         order: Int!
         value: String!
@@ -38,6 +42,7 @@ export default gql`
         expireTimestamp: GraphQLBigInt!
         comments: [Comment]!
         likes: [Like]!
+        votes: [Vote]!
     }
     input PollChoiceInput {
         value: String!
