@@ -27,8 +27,11 @@ export default async (input) => {
         PutRequest: {
           Item: {
             hashKey: `UserId:${userId}`,
-            sortKey: `DirectPoll:${timestamp}`,
+            sortKey: `DirectPoll:${pollId}`,
+            sortData1: `DirectPoll:${timestamp}:${pollId}`,
+            userId,
             pollId,
+            timestamp,
           },
         },
       }))),

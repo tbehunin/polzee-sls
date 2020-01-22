@@ -34,11 +34,12 @@ export default {
   },
   directPolls: async (userId) => {
     const params = {
+      IndexName: 'PollsHashKeySortData1Idx',
       ExpressionAttributeValues: {
         ':hk': `UserId:${userId}`,
         ':sk': 'DirectPoll:',
       },
-      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+      KeyConditionExpression: 'hashKey = :hk and begins_with(sortData1, :sk)',
     };
     return query(params);
   },

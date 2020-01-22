@@ -1,17 +1,26 @@
 [
   {
     "hashKey": "UserId:user2",
-    "sortKey": "DirectPoll:111",
-    "pollId": "dXNlcjE6MTEx"
+    "sortKey": "DirectPoll:dXNlcjE6MTEx",
+    "sortData1": "DirectPoll:111:dXNlcjE6MTEx",
+    "userId": "user2",
+    "pollId": "dXNlcjE6MTEx",
+    "timestamp": 111
   },
   {
     "hashKey": "UserId:user1",
-    "sortKey": "DirectPoll:111",
-    "pollId": "dXNlcjI6MTEx"
+    "sortKey": "DirectPoll:dXNlcjI6MTEx",
+    "sortData1": "DirectPoll:111:dXNlcjI6MTEx",
+    "userId": "user1",
+    "pollId": "dXNlcjI6MTEx",
+    "timestamp": 111
   },
   {
     "hashKey": "UserId:user3",
-    "sortKey": "DirectPoll:333",
-    "pollId": "dXNlcjI6MzMz"
+    "sortKey": "DirectPoll:dXNlcjI6MzMz",
+    "sortData1": "DirectPoll:333:dXNlcjI6MzMz",
+    "userId": "user3",
+    "pollId": "dXNlcjI6MzMz",
+    "timestamp": 333
   }
 ]
