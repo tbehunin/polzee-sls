@@ -1,0 +1,14 @@
+[
+  {
+    "hashKey": "UserId:user1",
+    "sortKey": "Follow:user2",
+    "hashData1": "UserId:user2",
+    "sortData1": "Following:111:user2",
+    "sortData2": "Follower:111:user1",
+    "sortData3": "Follower:Pending:222:user1",
+    "followerUserId": "user1",
+    "followingUserId": "user2",
+    "status": "Pending",
+    "timestamp": "111"
+  }
+]

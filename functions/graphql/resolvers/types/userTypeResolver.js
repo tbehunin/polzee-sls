@@ -19,12 +19,18 @@ const basicPropResolvers = ['username', 'fullName', 'email', 'bio', 'private'].r
   return acc;
 }, {});
 
-const followResolvers = ['followers', 'following'].reduce((acc, key) => {
+const followResolverPropMap = {
+  followers: 'followerUserId',
+  following: 'followingUserId',
+};
+
+const followResolvers = Object.keys(followResolverPropMap).reduce((acc, key) => {
   acc[key] = async ({ userId }) => {
     let result;
     try {
       const followList = await query[key](userId);
-      result = followList.map((item) => ({ userId: item.otherUserId }));
+      const followUserIdProp = followResolverPropMap[key];
+      result = followList.map((item) => ({ userId: item[followUserIdProp] }));
     } catch (error) {
       console.error(error);
       throw new ApolloError(`Error getting ${key} for user ${userId}`);

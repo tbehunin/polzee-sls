@@ -29,8 +29,7 @@ custom:
                 ./data/seed/users.json,
                 ./data/seed/directPolls.json,
                 ./data/seed/votes.json,
-                ./data/seed/following.json,
-                ./data/seed/followers.json,
+                ./data/seed/follows.json,
                 ./data/seed/comments.json,
                 ./data/seed/likes.json,
               ]

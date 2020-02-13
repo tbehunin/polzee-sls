@@ -49,4 +49,13 @@ export default {
     };
     return get(params);
   },
+  follow: async (followerUserId, followingUserId) => {
+    const params = {
+      Key: {
+        hashKey: `UserId:${followerUserId}`,
+        sortKey: `Follow:${followingUserId}`,
+      },
+    };
+    return get(params);
+  },
 };

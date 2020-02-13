@@ -45,35 +45,25 @@ export default {
   },
   followers: async (userId) => {
     const params = {
+      IndexName: 'PollsHashData1SortData2Idx',
       ExpressionAttributeValues: {
         ':hk': `UserId:${userId}`,
         ':sk': 'Follower:',
       },
-      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+      KeyConditionExpression: 'hashData1 = :hk and begins_with(sortData2, :sk)',
     };
     return query(params);
   },
   following: async (userId) => {
     const params = {
+      IndexName: 'PollsHashKeySortData1Idx',
       ExpressionAttributeValues: {
         ':hk': `UserId:${userId}`,
         ':sk': 'Following:',
       },
-      KeyConditionExpression: 'hashKey = :hk and begins_with(sortKey, :sk)',
+      KeyConditionExpression: 'hashKey = :hk and begins_with(sortData1, :sk)',
     };
     return query(params);
-  },
-  follower: async (userId, otherUserId) => {
-    const params = {
-      IndexName: 'PollsHashKeySortData1Idx',
-      KeyConditionExpression: 'hashKey = :hk AND sortData1 = :sk',
-      ExpressionAttributeValues: {
-        ':hk': `UserId:${userId}`,
-        ':sk': `FollowOtherUserId:${otherUserId}`,
-      },
-    };
-    const follow = await query(params);
-    return follow[0];
   },
   comments: async (pollId) => {
     const params = {

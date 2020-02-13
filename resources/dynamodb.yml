@@ -12,6 +12,10 @@ Resources:
           AttributeType: S
         - AttributeName: hashData1
           AttributeType: S
+        - AttributeName: sortData2
+          AttributeType: S
+        - AttributeName: sortData3
+          AttributeType: S
       KeySchema:
         - AttributeName: hashKey
           KeyType: HASH
@@ -32,6 +36,22 @@ Resources:
             - AttributeName: hashData1
               KeyType: HASH
             - AttributeName: sortData1
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: PollsHashData1SortData2Idx
+          KeySchema:
+            - AttributeName: hashData1
+              KeyType: HASH
+            - AttributeName: sortData2
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: PollsHashData1SortData3Idx
+          KeySchema:
+            - AttributeName: hashData1
+              KeyType: HASH
+            - AttributeName: sortData3
               KeyType: RANGE
           Projection:
             ProjectionType: ALL

@@ -20,4 +20,13 @@ export default {
     };
     return del(params);
   },
+  follow: async (followerUserId, followingUserId) => {
+    const params = {
+      Key: {
+        hashKey: `UserId:${followerUserId}`,
+        sortKey: `Follow:${followingUserId}`,
+      },
+    };
+    return del(params);
+  },
 };

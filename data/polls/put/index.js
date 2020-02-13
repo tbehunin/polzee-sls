@@ -60,4 +60,23 @@ export default {
     await put(params);
     return params.Item;
   },
+  follow: async (followerUserId, followingUserId, status = 'Accepted') => {
+    const timestamp = Date.now();
+    const params = {
+      Item: {
+        hashKey: `UserId:${followerUserId}`,
+        sortKey: `Follow:${followingUserId}`,
+        hashData1: `UserId:${followingUserId}`,
+        sortData1: `Following:${timestamp}:${followingUserId}`,
+        sortData2: `Follower:${timestamp}:${followerUserId}`,
+        sortData3: `Follower:${status}:${timestamp}:${followerUserId}`,
+        followerUserId,
+        followingUserId,
+        status,
+        timestamp,
+      },
+    };
+    await put(params);
+    return params.Item;
+  },
 };
