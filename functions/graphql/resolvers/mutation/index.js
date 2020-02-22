@@ -3,6 +3,7 @@ import vote from './voteResolver';
 import toggleFollow from './toggleFollowResolver';
 import comment from './commentResolver';
 import toggleLike from './toggleLikeResolver';
+import addCustomMedia from './addCustomMediaResolver';
 
 export default {
   createPoll,
@@ -10,4 +11,5 @@ export default {
   toggleFollow,
   comment,
   toggleLike,
+  addCustomMedia,
 };

@@ -3,6 +3,10 @@ import { gql } from 'apollo-server-lambda';
 export default gql`
     scalar GraphQLBigInt
 
+    type addCustomMediaResponse {
+        mediaId: ID!
+        uploadUrl: String!
+    }
     type Comment {
         user: User!
         comment: String!
@@ -66,9 +70,10 @@ export default gql`
     }
     type Mutation {
         createPoll(input: PollInput): Poll
-        vote(input: VoteInput): Poll
+        vote(input: VoteInput!): Poll
         toggleFollow(userId: ID!): User
         comment(pollId: ID!, comment: String!): Poll
         toggleLike(pollId: ID!): Poll
+        addCustomMedia(contentType: String!): addCustomMediaResponse
     }
 `;

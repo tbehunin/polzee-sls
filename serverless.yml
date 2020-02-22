@@ -5,6 +5,7 @@ service: polzee-sls
 custom:
   stage: "${opt:stage, self:provider.stage}"
   dbPolls: "${self:custom.stage}-polls"
+  s3PollsBucket: "${self:custom.stage}-polls-bucket"
   dynamodb:
     # If you only want to use DynamoDB Local in some stages, declare them here
     stages:

@@ -3,13 +3,13 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       # Set the CORS policy
+      BucketName: ${self:custom.s3PollsBucket}
       CorsConfiguration:
         CorsRules:
-          -
-            AllowedOrigins:
-              - '*'
+          - AllowedOrigins:
+              - "*"
             AllowedHeaders:
-              - '*'
+              - "*"
             AllowedMethods:
               - GET
               - PUT
