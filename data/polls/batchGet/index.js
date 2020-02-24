@@ -39,4 +39,14 @@ export default {
     }));
     return batchGet(keys);
   },
+  draftPolls: async (draftPollIds) => {
+    const keys = draftPollIds.map((draftPollId) => {
+      const draftPollIdSplit = Base64.decode(draftPollId).split(':');
+      return {
+        hashKey: `UserId:${draftPollIdSplit[0]}`,
+        sortKey: `DraftPoll:${draftPollIdSplit[1]}`,
+      };
+    });
+    return batchGet(keys);
+  },
 };

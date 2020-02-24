@@ -3,7 +3,7 @@ import uuid from 'uuid/v1';
 import put from '../data/polls/put';
 
 export default {
-  addCustomMedia: async (userId, contentType) => {
+  addCustomMedia: async (draftPollId, userId, contentType) => {
     const mediaId = uuid();
     const expires = 300; // five minutes
     const s3 = new AWS.S3();
@@ -15,7 +15,7 @@ export default {
     };
     const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
 
-    const media = await put.media(userId, mediaId);
+    const media = await put.media(userId, draftPollId, mediaId);
     return { ...media, uploadUrl };
   },
 };

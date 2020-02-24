@@ -80,6 +80,6 @@ export default gql`
         toggleFollow(userId: ID!): User
         comment(pollId: ID!, comment: String!): Poll
         toggleLike(pollId: ID!): Poll
-        addCustomMedia(contentType: String!): addCustomMediaResponse
+        addCustomMedia(draftPollId: ID!, contentType: String!): addCustomMediaResponse
     }
 `;

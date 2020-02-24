@@ -21,8 +21,15 @@ const votesLoader = new DataLoader(async (keys) => {
   cacheKeyFn: ({ userId, pollId }) => hash({ userId, pollId }),
 });
 
+const draftPollsLoader = new DataLoader(async (draftPollIds) => {
+  const draftPolls = await batchGet.draftPolls(draftPollIds);
+  return draftPollIds.map((draftPollId) => draftPolls
+    .find((draftPoll) => draftPoll.draftPollId === draftPollId));
+});
+
 export default {
   poll: pollsLoader,
   user: userLoader,
   vote: votesLoader,
+  draftPoll: draftPollsLoader,
 };

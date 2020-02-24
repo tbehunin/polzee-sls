@@ -79,12 +79,12 @@ export default {
     await put(params);
     return params.Item;
   },
-  media: async (userId, mediaId, contentType) => {
+  media: async (userId, draftPollId, mediaId, contentType) => {
     const timestamp = Date.now();
     const params = {
       Item: {
         hashKey: `UserId:${userId}`,
-        sortKey: `Media:${mediaId}`,
+        sortKey: `Media:${draftPollId}:${mediaId}`,
         mediaId,
         contentType,
         timestamp,
