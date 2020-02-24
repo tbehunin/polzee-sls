@@ -1,3 +1,4 @@
+import { Base64 } from 'js-base64';
 import data from '../..';
 
 const put = async (params) => {
@@ -86,6 +87,21 @@ export default {
         sortKey: `Media:${mediaId}`,
         mediaId,
         contentType,
+        timestamp,
+      },
+    };
+    await put(params);
+    return params.Item;
+  },
+  draftPoll: async (userId) => {
+    const timestamp = Date.now();
+    const draftPollId = Base64.encode(`${userId}:${timestamp}`);
+    const params = {
+      Item: {
+        hashKey: `UserId:${userId}`,
+        sortKey: `DraftPoll:${timestamp}`,
+        userId,
+        draftPollId,
         timestamp,
       },
     };

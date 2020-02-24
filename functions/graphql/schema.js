@@ -20,6 +20,11 @@ export default gql`
         user: User!
         timestamp: GraphQLBigInt!
     }
+    type DraftPoll {
+        draftPollId: ID!
+        user: User!
+        timestamp: GraphQLBigInt!
+    }
     type PollChoice {
         order: Int!
         value: String!
@@ -69,6 +74,7 @@ export default gql`
         user(userId: ID!): User
     }
     type Mutation {
+        draftPoll: DraftPoll
         createPoll(input: PollInput): Poll
         vote(input: VoteInput!): Poll
         toggleFollow(userId: ID!): User
