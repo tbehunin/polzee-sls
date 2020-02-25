@@ -85,9 +85,12 @@ export default {
       Item: {
         hashKey: `UserId:${userId}`,
         sortKey: `Media:${draftPollId}:${mediaId}`,
+        userId,
+        draftPollId,
         mediaId,
         contentType,
         timestamp,
+        uploaded: false,
       },
     };
     await put(params);

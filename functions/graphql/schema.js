@@ -53,15 +53,24 @@ export default gql`
         likes: [Like]!
         votes: [Vote]!
     }
+    input MediaItemInput {
+        mediaId: ID!
+        type: MediaType!
+    }
     input PollChoiceInput {
         value: String!
         acceptable: Boolean!
+        media: MediaItemInput
     }
     input PollInput {
+        draftPollId: ID!
         question: String!
         choices: [PollChoiceInput!]!
         sharedWith: [ID!]
         expireTimestamp: GraphQLBigInt!
+        background: MediaItemInput
+        reaction: MediaItemInput
+        reactionApproved: MediaItemInput
     }
     input VoteInput {
         pollId: ID!

@@ -49,4 +49,14 @@ export default {
     });
     return batchGet(keys);
   },
+  media: async (mediaKeys) => {
+    const keys = mediaKeys.map((mediaKey) => {
+      const draftPollIdSplit = Base64.decode(mediaKey.draftPollId).split(':');
+      return {
+        hashKey: `UserId:${draftPollIdSplit[0]}`,
+        sortKey: `Media:${mediaKey.draftPollId}:${mediaKey.mediaId}`,
+      };
+    });
+    return batchGet(keys);
+  },
 };

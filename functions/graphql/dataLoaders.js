@@ -27,9 +27,19 @@ const draftPollsLoader = new DataLoader(async (draftPollIds) => {
     .find((draftPoll) => draftPoll.draftPollId === draftPollId));
 });
 
+const mediaLoader = new DataLoader(async (keys) => {
+  const mediaItems = await batchGet.media(keys);
+  return keys.map((key) => mediaItems.find(
+    (mediaItem) => mediaItem.draftPollId === key.draftPollId && mediaItem.mediaId === key.mediaId,
+  ));
+}, {
+  cacheKeyFn: ({ draftPollId, mediaId }) => hash({ draftPollId, mediaId }),
+});
+
 export default {
   poll: pollsLoader,
   user: userLoader,
   vote: votesLoader,
   draftPoll: draftPollsLoader,
+  media: mediaLoader,
 };
