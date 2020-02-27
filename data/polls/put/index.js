@@ -96,19 +96,4 @@ export default {
     await put(params);
     return params.Item;
   },
-  draftPoll: async (userId) => {
-    const timestamp = Date.now();
-    const draftPollId = Base64.encode(`${userId}:${timestamp}`);
-    const params = {
-      Item: {
-        hashKey: `UserId:${userId}`,
-        sortKey: `DraftPoll:${timestamp}`,
-        userId,
-        draftPollId,
-        timestamp,
-      },
-    };
-    await put(params);
-    return params.Item;
-  },
 };
