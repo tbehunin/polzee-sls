@@ -1,7 +1,7 @@
 import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import add from '../../../../data/polls/add';
 
-export default async (_, { input }, { currentUserId, loaders }) => {
+export default async (_, { input, publish }, { currentUserId, loaders }) => {
   // Validate input that graphQL doesn't already automatically handle
   if (input.choices.length < 2 || input.choices.length > 6) {
     throw new ValidationError('Two or more choices required - not to exceed six');
