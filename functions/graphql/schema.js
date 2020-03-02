@@ -3,6 +3,10 @@ import { gql } from 'apollo-server-lambda';
 export default gql`
     scalar GraphQLBigInt
 
+    enum MediaType {
+        USER
+        GLOBAL
+    }
     type addCustomMediaResponse {
         mediaId: ID!
         uploadUrl: String!
@@ -22,8 +26,19 @@ export default gql`
     }
     type DraftPoll {
         draftPollId: ID!
+        background: MediaItemType
         user: User!
-        timestamp: GraphQLBigInt!
+        createTimestamp: GraphQLBigInt!
+        question: String!
+        choices: [PollChoice]!
+        sharedWith: [ID]
+        expireTimestamp: GraphQLBigInt!
+        mediaUploadId: ID!
+        comments: [Comment]!
+        likes: [Like]!
+        votes: [Vote]!
+        reaction: MediaItemType
+        reactionApproved: MediaItemType
     }
     type PollChoice {
         order: Int!
@@ -63,7 +78,7 @@ export default gql`
         media: MediaItemInput
     }
     input PollInput {
-        draftPollId: ID!
+        draftPollId: ID
         question: String!
         choices: [PollChoiceInput!]!
         sharedWith: [ID!]

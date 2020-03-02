@@ -86,4 +86,54 @@ export default {
     await put(params);
     return params.Item;
   },
+  draftPoll: async ({
+    draftPollId,
+    userId,
+    question,
+    choices,
+    sharedWith,
+    expireTimestamp,
+    background,
+    reaction,
+    reactionApproved,
+  }) => {
+    const timestamp = Date.now();
+    let draftPollIdToUse;
+    let userIdToUse;
+    let createTimestampToUse;
+
+    if (draftPollId) {
+      draftPollIdToUse = draftPollId;
+      const draftPollIdSplit = Base64.decode(draftPollId).split(':');
+      if (draftPollIdSplit.length !== 2) {
+        throw new Error(`Unknown format for draftPollId '${draftPollId}'`);
+      }
+      [userIdToUse, createTimestampToUse] = draftPollIdSplit;
+    } else {
+      if (!userId) {
+        throw new Error('Missing userId');
+      }
+      draftPollIdToUse = Base64.encode(`${userId}:${timestamp}`);
+      userIdToUse = userId;
+      createTimestampToUse = timestamp;
+    }
+
+    const params = {
+      hashKey: `UserId:${userId}`,
+      sortKey: `DraftPoll:${createTimestampToUse}`,
+      draftPollId: draftPollIdToUse,
+      userId: userIdToUse,
+      question,
+      choices,
+      sharedWith,
+      expireTimestamp,
+      background,
+      reaction,
+      reactionApproved,
+      createTimestamp: createTimestampToUse,
+      updateTimestamp: timestamp,
+    };
+    await put(params);
+    return params.Item;
+  },
 };

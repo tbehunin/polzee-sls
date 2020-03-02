@@ -49,14 +49,18 @@ export default {
     });
     return batchGet(keys);
   },
-  media: async (mediaKeys) => {
-    const keys = mediaKeys.map((mediaKey) => {
-      const draftPollIdSplit = Base64.decode(mediaKey.draftPollId).split(':');
-      return {
-        hashKey: `UserId:${draftPollIdSplit[0]}`,
-        sortKey: `Media:${mediaKey.draftPollId}:${mediaKey.mediaId}`,
-      };
-    });
+  userMedia: async (userMediaKeys) => {
+    const keys = userMediaKeys.map((userMediaKey) => ({
+      hashKey: `UserId:${userMediaKey.userId}`,
+      sortKey: `Media:${userMediaKey.mediaUploadId}:${userMediaKey.mediaId}`,
+    }));
+    return batchGet(keys);
+  },
+  globalMedia: async (globalMediaIds) => {
+    const keys = globalMediaIds.map((globalMediaId) => ({
+      hashKey: 'GlobalMedia',
+      sortKey: `Id:${globalMediaId}`,
+    }));
     return batchGet(keys);
   },
 };

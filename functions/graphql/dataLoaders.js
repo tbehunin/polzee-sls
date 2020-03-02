@@ -27,13 +27,20 @@ const draftPollsLoader = new DataLoader(async (draftPollIds) => {
     .find((draftPoll) => draftPoll.draftPollId === draftPollId));
 });
 
-const mediaLoader = new DataLoader(async (keys) => {
-  const mediaItems = await batchGet.media(keys);
+const userMediaLoader = new DataLoader(async (keys) => {
+  const mediaItems = await batchGet.userMedia(keys);
   return keys.map((key) => mediaItems.find(
-    (mediaItem) => mediaItem.draftPollId === key.draftPollId && mediaItem.mediaId === key.mediaId,
+    (mediaItem) => mediaItem.userId === key.userId && mediaItem.mediaUploadId === key.mediaUploadId
+      && mediaItem.mediaId === key.mediaId,
   ));
 }, {
-  cacheKeyFn: ({ draftPollId, mediaId }) => hash({ draftPollId, mediaId }),
+  cacheKeyFn: ({ userId, mediaUploadId, mediaId }) => hash({ userId, mediaUploadId, mediaId }),
+});
+
+const globalMediaLoader = new DataLoader(async (globalMediaIds) => {
+  const globalMediaItems = await batchGet.globalMedia(globalMediaIds);
+  return globalMediaIds.map((globalMediaId) => globalMediaItems
+    .find((globalMediaItem) => globalMediaItem.globalMediaId === globalMediaId));
 });
 
 export default {
@@ -41,5 +48,6 @@ export default {
   user: userLoader,
   vote: votesLoader,
   draftPoll: draftPollsLoader,
-  media: mediaLoader,
+  userMedia: userMediaLoader,
+  globalMedia: globalMediaLoader,
 };
