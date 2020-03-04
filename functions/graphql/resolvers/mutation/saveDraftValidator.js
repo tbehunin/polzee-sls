@@ -57,8 +57,9 @@ export default async (_, { input }, { currentUserId, loaders }) => {
     }));
 
     const mediaList = await loaders.userMedia.loadMany(userMediaItemKeys);
-    if (mediaList.some((media) => !media || !media.uploaded)) {
-      throw new ValidationError('Some user media not uploaded or not found');
+    const invalidMedia = mediaList.filter((media) => !media || !media.uploaded);
+    if (invalidMedia.length) {
+      throw new ValidationError(`User media not uploaded or not found: ${invalidMedia.join(', ')}`);
     }
   }
 
@@ -68,8 +69,9 @@ export default async (_, { input }, { currentUserId, loaders }) => {
     const globalMediaItemKeys = globalMediaItems.map((mediaInput) => mediaInput.mediaId);
 
     const mediaList = await loaders.globalMedia.loadMany(globalMediaItemKeys);
-    if (mediaList.some((media) => !media)) {
-      throw new ValidationError('Some global media not found');
+    const invalidMedia = mediaList.filter((media) => !media);
+    if (invalidMedia.length) {
+      throw new ValidationError(`Global media not found: ${invalidMedia.join(', ')}`);
     }
   }
 };
