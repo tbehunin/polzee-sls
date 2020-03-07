@@ -68,9 +68,9 @@ functions:
           path: lambdaArgs
           method: get
           cors: true
-          authorizer:
-            type: COGNITO_USER_POOLS
-            authorizerId: !Ref PolzeeApiGatewayAuthorizer
+          # authorizer:
+          #   type: COGNITO_USER_POOLS
+          #   authorizerId: !Ref PolzeeApiGatewayAuthorizer
   graphql:
     handler: functions/graphql/index.handler
     events:

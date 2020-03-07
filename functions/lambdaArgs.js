@@ -5,7 +5,12 @@ export const handler = async (event, context) => {
   const response = {
     statusCode: 200,
     headers: { ...corsHeaders },
-    body: JSON.stringify({ event, context }),
+    body: JSON.stringify({
+      event,
+      context,
+      node_env: process.env.NODE_ENV,
+      env: process.env,
+    }),
   };
   return response;
 };
