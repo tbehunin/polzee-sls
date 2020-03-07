@@ -11,6 +11,11 @@ const server = new ApolloServer({
     currentUserId: options.event.requestContext.authorizer.claims.sub,
     loaders,
   }),
+  formatError: (error) => {
+    console.error(error);
+    return error;
+  },
+  debug: process.env.stage !== 'prod',
 });
 
 // eslint-disable-next-line import/prefer-default-export
