@@ -99,6 +99,7 @@ export default gql`
     }
     type Mutation {
         saveDraft(input: PollInput): DraftPoll
+        publishPoll(input: PollInput): Poll
         vote(input: VoteInput!): Poll
         toggleFollow(userId: ID!): User
         comment(pollId: ID!, comment: String!): Poll

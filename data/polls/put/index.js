@@ -1,4 +1,5 @@
 import { Base64 } from 'js-base64';
+import { v4 as uuidv4 } from 'uuid';
 import data from '../..';
 
 const put = async (params) => {
@@ -7,6 +8,19 @@ const put = async (params) => {
     TableName: process.env.dbPolls,
   };
   return data.db.put(pollParams).promise();
+};
+
+const batch = async (items) => {
+  const params = {
+    RequestItems: {
+      [process.env.dbPolls]: items.map((item) => ({
+        PutRequest: {
+          Item: item,
+        },
+      })),
+    },
+  };
+  return data.db.batchWrite(params).promise();
 };
 
 export default {
@@ -93,6 +107,7 @@ export default {
     choices,
     sharedWith,
     expireTimestamp,
+    mediaUploadId,
     background,
     reaction,
     reactionApproved,
@@ -127,6 +142,7 @@ export default {
       choices,
       sharedWith,
       expireTimestamp,
+      mediaUploadId: mediaUploadId || uuidv4(),
       background,
       reaction,
       reactionApproved,
@@ -135,5 +151,54 @@ export default {
     };
     await put(params);
     return params.Item;
+  },
+  poll: async ({
+    userId,
+    question,
+    choices,
+    sharedWith,
+    expireTimestamp,
+    mediaUploadId,
+    background,
+    reaction,
+    reactionApproved,
+  }) => {
+    const timestamp = Date.now();
+    const pollId = Base64.encode(`${userId}:${timestamp}`);
+    const scope = (sharedWith || []).length ? 'Private' : 'Public';
+
+    const newPoll = {
+      hashKey: `UserId:${userId}`,
+      sortKey: `Poll:${timestamp}`,
+      sortData1: `${scope}:${timestamp}`,
+      pollId,
+      userId,
+      question,
+      choices: choices.map((choice, idx) => ({
+        ...choice,
+        order: idx + 1,
+      })),
+      sharedWith,
+      expireTimestamp,
+      mediaUploadId: mediaUploadId || uuidv4(),
+      background,
+      reaction,
+      reactionApproved,
+      createTimestamp: timestamp,
+    };
+    const items = [newPoll].concat(sharedWith.map((otherUserId) => ({
+      PutRequest: {
+        Item: {
+          hashKey: `UserId:${otherUserId}`,
+          sortKey: `DirectPoll:${pollId}`,
+          sortData1: `DirectPoll:${timestamp}:${pollId}`,
+          userId: otherUserId,
+          pollId,
+          timestamp,
+        },
+      },
+    })));
+    await batch(items);
+    return newPoll;
   },
 };
