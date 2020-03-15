@@ -106,7 +106,8 @@ export default {
     question,
     choices,
     sharedWith,
-    expireTimestamp,
+    expireTimeUnit,
+    expireTimeValue,
     mediaUploadId,
     background,
     reaction,
@@ -141,7 +142,8 @@ export default {
       question,
       choices,
       sharedWith,
-      expireTimestamp,
+      expireTimeUnit,
+      expireTimeValue,
       mediaUploadId: mediaUploadId || uuidv4(),
       background,
       reaction,
@@ -157,7 +159,8 @@ export default {
     question,
     choices,
     sharedWith,
-    expireTimestamp,
+    expireTimeUnit,
+    expireTimeValue,
     mediaUploadId,
     background,
     reaction,
@@ -166,6 +169,16 @@ export default {
     const timestamp = Date.now();
     const pollId = Base64.encode(`${userId}:${timestamp}`);
     const scope = (sharedWith || []).length ? 'Private' : 'Public';
+    const timeUnitMs = {
+      MINUTES: 60000,
+      HOURS: 3600000,
+      DAYS: 86400000,
+    };
+
+    let expireTimestamp;
+    if (expireTimeUnit && expireTimeValue > 0) {
+      expireTimestamp = timestamp + (timeUnitMs[expireTimeUnit] * expireTimeValue);
+    }
 
     const newPoll = {
       hashKey: `UserId:${userId}`,

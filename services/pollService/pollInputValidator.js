@@ -39,8 +39,8 @@ export default (currentUserId, loaders) => ({
     }
 
     // Validate expiration occurs in the future
-    if (input.expireTimestamp <= Date.now()) {
-      throw new UserInputError(`Expiration timestamp '${input.expireTimestamp}' must occur in the future`);
+    if (input.expireTimeUnit && (!input.expireTimeValue || input.expireTimeValue < 1)) {
+      throw new UserInputError(`Invalid expireTimeValue (${input.expireTimeValue}) specified for ${input.expireTimeUnit} time unit`);
     }
 
     const mediaItems = [input.background, input.reaction, input.reactionApproved].concat(

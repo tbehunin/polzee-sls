@@ -31,7 +31,8 @@ export default async (_, { pollId, comment }, { currentUserId, loaders }) => {
   // - current user is the author of the poll, or
   // - current user has voted on it, or
   // - the poll has expired
-  if (poll.userId !== currentUserId && !vote && poll.expireTimestamp > Date.now()) {
+  if (poll.userId !== currentUserId && !vote
+    && (!poll.expireTimestamp || poll.expireTimestamp > Date.now())) {
     throw new ForbiddenError('Cannot comment when user is not the author, hasn\'t voted on it, '
       + 'or the poll hasn\'t expired yet.');
   }

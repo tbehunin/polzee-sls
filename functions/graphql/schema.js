@@ -7,6 +7,11 @@ export default gql`
         USER
         GLOBAL
     }
+    enum TimeUnitType {
+        MINUTES
+        HOURS
+        DAYS
+    }
     type addCustomMediaResponse {
         mediaId: ID!
         uploadUrl: String!
@@ -82,7 +87,8 @@ export default gql`
         question: String!
         choices: [PollChoiceInput!]!
         sharedWith: [ID!]
-        expireTimestamp: GraphQLBigInt!
+        expireTimeUnit: TimeUnitType
+        expireTimeValue: Int
         background: MediaItemInput
         reaction: MediaItemInput
         reactionApproved: MediaItemInput
