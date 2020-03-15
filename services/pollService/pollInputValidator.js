@@ -12,7 +12,12 @@ export default (currentUserId, loaders) => ({
       }
 
       const users = await loaders.user.loadMany(input.sharedWith);
-      const invalidUsers = users.filter((user) => !user);
+      const invalidUsers = input.sharedWith.reduce((acc, id, idx) => {
+        if (!users[idx]) {
+          acc.push(input.sharedWith[idx]);
+        }
+        return acc;
+      }, []);
       if (invalidUsers.length) {
         throw new UserInputError(`Users not found: ${invalidUsers.join(', ')}`);
       }
