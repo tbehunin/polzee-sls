@@ -50,8 +50,8 @@ export default (currentUserId, loaders) => ({
     // Validate user mediaId's
     const userMediaItems = mediaItems.filter((mediaInput) => mediaInput.type === 'USER');
     if (userMediaItems.length) {
-      if (!draftPoll || !draftPoll.mediaUploadId) {
-        throw new UserInputError('Missing draftPollId and/or mediaUploadId');
+      if (!draftPoll) {
+        throw new UserInputError(`DraftPollId ${input.draftPollId} not found`);
       }
 
       const userMediaItemKeys = userMediaItems.map((mediaInput) => ({
@@ -61,7 +61,12 @@ export default (currentUserId, loaders) => ({
       }));
 
       const mediaList = await loaders.userMedia.loadMany(userMediaItemKeys);
-      const invalidMedia = mediaList.filter((media) => !media || !media.uploaded);
+      const invalidMedia = userMediaItemKeys.reduce((acc, item, idx) => {
+        if (!mediaList[idx]) {
+          acc.push(userMediaItemKeys[idx].mediaId);
+        }
+        return acc;
+      }, []);
       if (invalidMedia.length) {
         throw new UserInputError(`User media not uploaded or not found: ${invalidMedia.join(', ')}`);
       }
@@ -70,10 +75,19 @@ export default (currentUserId, loaders) => ({
     // Validate global mediaId's
     const globalMediaItems = mediaItems.filter((mediaInput) => mediaInput.type === 'GLOBAL');
     if (globalMediaItems.length) {
+      if (!draftPoll) {
+        throw new UserInputError(`DraftPollId ${input.draftPollId} not found`);
+      }
+
       const globalMediaItemKeys = globalMediaItems.map((mediaInput) => mediaInput.mediaId);
 
       const mediaList = await loaders.globalMedia.loadMany(globalMediaItemKeys);
-      const invalidMedia = mediaList.filter((media) => !media);
+      const invalidMedia = globalMediaItemKeys.reduce((acc, item, idx) => {
+        if (!mediaList[idx]) {
+          acc.push(globalMediaItemKeys[idx]);
+        }
+        return acc;
+      }, []);
       if (invalidMedia.length) {
         throw new UserInputError(`Global media not found: ${invalidMedia.join(', ')}`);
       }
