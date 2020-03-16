@@ -199,7 +199,7 @@ export default {
       reactionApproved,
       createTimestamp: timestamp,
     };
-    const items = [newPoll].concat(sharedWith.map((otherUserId) => ({
+    const items = [newPoll].concat((sharedWith || []).map((otherUserId) => ({
       PutRequest: {
         Item: {
           hashKey: `UserId:${otherUserId}`,

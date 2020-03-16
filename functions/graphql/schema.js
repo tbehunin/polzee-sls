@@ -79,7 +79,7 @@ export default gql`
         question: String!
         choices: [PollChoice]!
         sharedWith: [ID]
-        expireTimestamp: GraphQLBigInt!
+        expireTimestamp: GraphQLBigInt
         comments: [Comment]!
         likes: [Like]!
         votes: [Vote]!
