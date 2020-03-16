@@ -152,7 +152,7 @@ export default {
       updateTimestamp: timestamp,
     };
     await put(params);
-    return params.Item;
+    return params;
   },
   poll: async ({
     userId,

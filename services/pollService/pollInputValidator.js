@@ -44,10 +44,8 @@ export default (currentUserId, loaders) => ({
     }
 
     const mediaItems = [input.background, input.reaction, input.reactionApproved].concat(
-      input.choices.map((choice) => choice.media).filter(
-        (mediaInput) => mediaInput && mediaInput.mediaUploadId,
-      ),
-    );
+      input.choices.map((choice) => choice.media),
+    ).filter((mediaInput) => mediaInput && mediaInput.mediaId && mediaInput.type);
 
     // Validate user mediaId's
     const userMediaItems = mediaItems.filter((mediaInput) => mediaInput.type === 'USER');

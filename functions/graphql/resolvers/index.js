@@ -7,6 +7,8 @@ import userTypeResolver from './types/userTypeResolver';
 import commentTypeResolver from './types/commentTypeResolver';
 import likeTypeResolver from './types/likeTypeResolver';
 import voteTypeResolver from './types/voteTypeResolver';
+import draftPollTypeResolver from './types/draftPollTypeResolver';
+import draftPollChoiceTypeResolver from './types/draftPollChoiceTypeResolver';
 
 export default {
   GraphQLBigInt: new GraphQLBigInt('safe'),
@@ -18,4 +20,6 @@ export default {
   Comment: commentTypeResolver,
   Like: likeTypeResolver,
   Vote: voteTypeResolver,
+  DraftPoll: draftPollTypeResolver,
+  DraftPollChoiceType: draftPollChoiceTypeResolver,
 };

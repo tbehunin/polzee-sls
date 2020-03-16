@@ -29,27 +29,37 @@ export default gql`
         user: User!
         timestamp: GraphQLBigInt!
     }
+    type DraftPollChoiceType {
+        value: String!
+        acceptable: Boolean
+        media: MediaItemType
+    }
     type DraftPoll {
         draftPollId: ID!
-        background: MediaItemType
         user: User!
-        createTimestamp: GraphQLBigInt!
         question: String!
-        choices: [PollChoice]!
+        choices: [DraftPollChoiceType]!
         sharedWith: [ID]
-        expireTimestamp: GraphQLBigInt!
+        expireTimeUnit: TimeUnitType
+        expireTimeValue: Int
+        createTimestamp: GraphQLBigInt!
+        updateTimestamp: GraphQLBigInt!
         mediaUploadId: ID!
-        comments: [Comment]!
-        likes: [Like]!
-        votes: [Vote]!
+        background: MediaItemType
         reaction: MediaItemType
         reactionApproved: MediaItemType
+    }
+    type MediaItemType {
+        type: MediaType!
+        contentType: String!
+        url: String!
     }
     type PollChoice {
         order: Int!
         value: String!
         acceptable: Boolean
         selected: Boolean
+        media: MediaItemType
     }
     type User {
         userId: ID!
@@ -63,6 +73,7 @@ export default gql`
     }
     type Poll {
         pollId: ID!
+        background: MediaItemType
         user: User!
         createTimestamp: GraphQLBigInt!
         question: String!
@@ -72,6 +83,8 @@ export default gql`
         comments: [Comment]!
         likes: [Like]!
         votes: [Vote]!
+        reaction: MediaItemType
+        reactionApproved: MediaItemType
     }
     input MediaItemInput {
         mediaId: ID!
@@ -79,7 +92,7 @@ export default gql`
     }
     input PollChoiceInput {
         value: String!
-        acceptable: Boolean!
+        acceptable: Boolean
         media: MediaItemInput
     }
     input PollInput {
