@@ -1,4 +1,4 @@
-import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
+import { UserInputError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import put from '../../../../data/polls/put';
 
 export default async (_, { pollId, comment }, { currentUserId, loaders }) => {
@@ -17,7 +17,7 @@ export default async (_, { pollId, comment }, { currentUserId, loaders }) => {
 
   // Ensure the poll exists
   if (!poll) {
-    throw new ValidationError(`PollId '${pollId}' not found`);
+    throw new UserInputError(`PollId '${pollId}' not found`);
   }
 
   // Validate user has access to comment on this

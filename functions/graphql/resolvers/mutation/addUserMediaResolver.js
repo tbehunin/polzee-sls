@@ -1,12 +1,12 @@
 
-import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
+import { UserInputError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import mediaService from '../../../../services/mediaService';
 
 export default async (_, { draftPollId, contentType }, { currentUserId, loaders }) => {
   // Validate draftPoll exists
   const draftPoll = await loaders.draftPoll.load(draftPollId);
   if (!draftPoll) {
-    throw new ValidationError(`DraftPollId '${draftPollId}' not found`);
+    throw new UserInputError(`DraftPollId '${draftPollId}' not found`);
   }
 
   // Validate it belongs to the current user
@@ -17,7 +17,7 @@ export default async (_, { draftPollId, contentType }, { currentUserId, loaders 
   // Validate the contentType
   const supported = ['image/bmp', 'image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'video/mp4'];
   if (!supported.includes(contentType.toLowerCase())) {
-    throw new ValidationError(`ContentType '${contentType}' not supported`);
+    throw new UserInputError(`ContentType '${contentType}' not supported`);
   }
 
   let result;

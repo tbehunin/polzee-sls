@@ -1,4 +1,4 @@
-import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
+import { UserInputError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import toggle from '../../../../data/polls/toggle';
 
 export default async (_, { pollId }, { currentUserId, loaders }) => {
@@ -12,7 +12,7 @@ export default async (_, { pollId }, { currentUserId, loaders }) => {
   }
 
   if (!poll) {
-    throw new ValidationError(`PollId '${pollId}' not found`);
+    throw new UserInputError(`PollId '${pollId}' not found`);
   }
 
   // Validate user has access to like it

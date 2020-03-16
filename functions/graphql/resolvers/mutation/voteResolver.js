@@ -1,10 +1,10 @@
-import { ValidationError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
+import { UserInputError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import put from '../../../../data/polls/put';
 
 export default async (_, { input }, { currentUserId, loaders }) => {
   // Validate input that graphQL doesn't already automatically handle
   if (!input.selection.length) {
-    throw new ValidationError('One or more selections required');
+    throw new UserInputError('One or more selections required');
   }
 
   let pollData;
@@ -22,12 +22,12 @@ export default async (_, { input }, { currentUserId, loaders }) => {
 
   // Ensure the poll exists
   if (!poll) {
-    throw new ValidationError(`PollId '${input.pollId}' not found`);
+    throw new UserInputError(`PollId '${input.pollId}' not found`);
   }
 
   // Ensure the user hasn't voted on it before
   if (vote) {
-    throw new ValidationError(`User already voted on pollId '${input.pollId}'`);
+    throw new UserInputError(`User already voted on pollId '${input.pollId}'`);
   }
 
   // Validate user has access to vote on this
@@ -39,13 +39,13 @@ export default async (_, { input }, { currentUserId, loaders }) => {
 
   // Validate the poll hasn't expired
   if (poll.expireTimestamp > Date.now()) {
-    throw new ValidationError(`PollId '${input.pollId}' has already expired`);
+    throw new UserInputError(`PollId '${input.pollId}' has already expired`);
   }
 
   // Ensure they are valid selections
   input.selection.forEach((selection) => {
     if (selection <= 0 || selection > poll.choices.length) {
-      throw new ValidationError(`Invalid selection '${selection}'`);
+      throw new UserInputError(`Invalid selection '${selection}'`);
     }
   });
 
