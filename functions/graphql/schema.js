@@ -12,7 +12,7 @@ export default gql`
         HOURS
         DAYS
     }
-    type addCustomMediaResponse {
+    type addUserMediaResponse {
         mediaId: ID!
         uploadUrl: String!
     }
@@ -123,6 +123,6 @@ export default gql`
         toggleFollow(userId: ID!): User
         comment(pollId: ID!, comment: String!): Poll
         toggleLike(pollId: ID!): Poll
-        addCustomMedia(draftPollId: ID!, contentType: String!): addCustomMediaResponse
+        addUserMedia(draftPollId: ID!, contentType: String!): addUserMediaResponse
     }
 `;

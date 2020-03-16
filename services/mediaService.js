@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import put from '../data/polls/put';
 
 export default {
-  addCustomMedia: async (draftPollId, userId, contentType) => {
+  addUserMedia: async (draftPollId, userId, contentType) => {
     const mediaId = uuidv4();
     const expires = 300; // five minutes
     const s3 = new AWS.S3();

@@ -22,7 +22,7 @@ export default async (_, { draftPollId, contentType }, { currentUserId, loaders 
 
   let result;
   try {
-    result = await mediaService.addCustomMedia(draftPollId, currentUserId, contentType);
+    result = await mediaService.addUserMedia(draftPollId, currentUserId, contentType);
   } catch (error) {
     console.error(error);
     throw new ApolloError(`Error adding custom media for user ${currentUserId}`);
