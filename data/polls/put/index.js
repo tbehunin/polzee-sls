@@ -26,7 +26,7 @@ const batch = async (items) => {
 export default {
   vote: async (userId, pollId, selection) => {
     const timestamp = Date.now();
-    const params = {
+    const vote = {
       hashKey: `UserId:${userId}`,
       sortKey: `Vote:${pollId}`,
       hashData1: `PollId:${pollId}`,
@@ -36,12 +36,12 @@ export default {
       selection,
       timestamp,
     };
-    await put(params);
-    return params.Item;
+    await put(vote);
+    return vote;
   },
   comment: async (userId, pollId, comment) => {
     const timestamp = Date.now();
-    const params = {
+    const commentItem = {
       hashKey: `UserId:${userId}`,
       sortKey: `Comment:${pollId}:${timestamp}`,
       hashData1: `PollId:${pollId}`,
@@ -51,12 +51,12 @@ export default {
       comment,
       createTimestamp: timestamp,
     };
-    await put(params);
-    return params.Item;
+    await put(commentItem);
+    return commentItem;
   },
   like: async (userId, pollId) => {
     const timestamp = Date.now();
-    const params = {
+    const like = {
       hashKey: `UserId:${userId}`,
       sortKey: `Like:${pollId}`,
       hashData1: `PollId:${pollId}`,
@@ -65,12 +65,12 @@ export default {
       pollId,
       timestamp,
     };
-    await put(params);
-    return params.Item;
+    await put(like);
+    return like;
   },
   follow: async (followerUserId, followingUserId, status = 'Accepted') => {
     const timestamp = Date.now();
-    const params = {
+    const follow = {
       hashKey: `UserId:${followerUserId}`,
       sortKey: `Follow:${followingUserId}`,
       hashData1: `UserId:${followingUserId}`,
@@ -82,23 +82,23 @@ export default {
       status,
       timestamp,
     };
-    await put(params);
-    return params.Item;
+    await put(follow);
+    return follow;
   },
-  media: async (userId, draftPollId, mediaId, contentType) => {
-    const timestamp = Date.now();
-    const params = {
+  media: async (userId, mediaUploadId, mediaId, contentType) => {
+    const createTimestamp = Date.now();
+    const media = {
       hashKey: `UserId:${userId}`,
-      sortKey: `Media:${draftPollId}:${mediaId}`,
+      sortKey: `Media:${mediaUploadId}:${mediaId}`,
       userId,
-      draftPollId,
+      mediaUploadId,
       mediaId,
       contentType,
-      timestamp,
+      createTimestamp,
       uploaded: false,
     };
-    await put(params);
-    return params.Item;
+    await put(media);
+    return media;
   },
   draftPoll: async ({
     draftPollId,
@@ -134,9 +134,11 @@ export default {
       createTimestampToUse = timestamp;
     }
 
+    const mediaUploadIdToUse = mediaUploadId || uuidv4();
     const params = {
       hashKey: `UserId:${userId}`,
       sortKey: `DraftPoll:${createTimestampToUse}`,
+      sortData1: `DraftPollMediaUpload:${mediaUploadIdToUse}`,
       draftPollId: draftPollIdToUse,
       userId: userIdToUse,
       question,
@@ -144,7 +146,7 @@ export default {
       sharedWith,
       expireTimeUnit,
       expireTimeValue,
-      mediaUploadId: mediaUploadId || uuidv4(),
+      mediaUploadId: mediaUploadIdToUse,
       background,
       reaction,
       reactionApproved,

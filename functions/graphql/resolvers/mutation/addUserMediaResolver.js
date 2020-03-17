@@ -1,17 +1,18 @@
 
 import { UserInputError, ApolloError, ForbiddenError } from 'apollo-server-lambda';
 import mediaService from '../../../../services/mediaService';
+import query from '../../../../data/polls/query';
 
-export default async (_, { draftPollId, contentType }, { currentUserId, loaders }) => {
+export default async (_, { mediaUploadId, contentType }, { currentUserId }) => {
   // Validate draftPoll exists
-  const draftPoll = await loaders.draftPoll.load(draftPollId);
-  if (!draftPoll) {
-    throw new UserInputError(`DraftPollId '${draftPollId}' not found`);
+  const draftPollList = await query.draftPoll(currentUserId, mediaUploadId);
+  if (!draftPollList || draftPollList.length !== 1) {
+    throw new UserInputError(`Draft poll not found by mediaUploadId ${mediaUploadId}`);
   }
 
   // Validate it belongs to the current user
-  if (draftPoll.userId !== currentUserId) {
-    throw new ForbiddenError(`Not authorized to retrieve draftPollId '${draftPollId}'`);
+  if (draftPollList[0].userId !== currentUserId) {
+    throw new ForbiddenError('Not authorized to retrieve draftPollId');
   }
 
   // Validate the contentType
@@ -22,7 +23,7 @@ export default async (_, { draftPollId, contentType }, { currentUserId, loaders 
 
   let result;
   try {
-    result = await mediaService.addUserMedia(draftPollId, currentUserId, contentType);
+    result = await mediaService.addUserMedia(mediaUploadId, currentUserId, contentType);
   } catch (error) {
     console.error(error);
     throw new ApolloError(`Error adding custom media for user ${currentUserId}`);

@@ -98,4 +98,15 @@ export default {
     };
     return query(params);
   },
+  draftPoll: async (userId, mediaUploadId) => {
+    const params = {
+      IndexName: 'PollsHashKeySortData1Idx',
+      KeyConditionExpression: 'hashKey = :hk AND sortData1 = :sk',
+      ExpressionAttributeValues: {
+        ':hk': `UserId:${userId}`,
+        ':sk': `DraftPollMediaUpload:${mediaUploadId}`,
+      },
+    };
+    return query(params);
+  },
 };
